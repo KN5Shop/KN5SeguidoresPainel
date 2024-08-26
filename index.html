@@ -266,7 +266,7 @@
 
                     if (name && category && service && packageRange) {
                         // Construir a URL de envio do WhatsApp com as informações do pedido
-                        const message = `Olá vim pelo seu site KN5 Shop, tudo bem? 😊%0A%0A*Nome:* ${name}%0A*Categoria:* ${category}%0A*Serviço:* ${service}%0A*Pacote:* ${packageRange}`;
+                        const message = `Olá, vim pelo seu site KN5 Shop! 😊\n\n*Nome:* ${name}\n*Categoria:* ${category}\n*Serviço:* ${service}\n*Pacote:* ${packageRange}`;
                         const whatsappURL = `https://api.whatsapp.com/send?phone=+5519995271979&text=${encodeURIComponent(message)}`;
 
                         // Redirecionar para o WhatsApp
