@@ -177,11 +177,15 @@
                     <label for="category">Categoria:</label>
                     <select id="category" name="category" class="form-control" required>
                         <option value="" disabled selected>Selecione uma categoria</option>
-                        <option value="seguidores">Seguidores</option>
-                        <option value="curtidas">Curtidas</option>
-                        <option value="comentarios">Comentários</option>
-                        <option value="visualizacoes">Visualizações</option>
-                        <option value="inscritos">Inscritos</option>
+                        <option value="instagram">Instagram</option>
+                        <option value="tiktok">TikTok</option>
+                        <option value="kwai">Kwai</option>
+                        <option value="youtube">YouTube</option>
+                        <option value="twitter">Twitter</option>
+                        <option value="whatsapp">WhatsApp</option>
+                        <option value="spotify">Spotify</option>
+                        <option value="twitch">Twitch</option>
+                        <option value="google">Google</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -203,6 +207,11 @@
         </div>
     </div>
 
+    <!-- Section to display selected services -->
+    <div id="servicesDisplay" class="service-list">
+        <div class="service-column" id="serviceColumn"></div>
+    </div>
+
     <div class="footer">
         &copy; 2024 KN5 Seguidores - <a href="https://api.whatsapp.com/send?phone=+5519995271979&text=Ol%C3%A1+vim+pelo+seu+site+KN5+Shop%2C+tudo+bem%3F+%F0%9F%98%83">Contato via WhatsApp</a>
     </div>
@@ -212,104 +221,103 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.min.js"></script>
 <script>
     const services = {
-        seguidores: [
-            { name: "Seguidores Mundiais", value: "seguidores_mundiais" },
-            { name: "Seguidores Brasileiros", value: "seguidores_brasileiros" }
+        instagram: [
+            { name: "Visualizações em vídeo | Reel / IGTV | Rápido", price: "R$ 9999", range: "0-10 min" },
+            { name: "Curtidas Mundiais", price: "R$ 9999", range: "0-5 min" },
+            { name: "Curtidas Orgânicas BR", price: "R$ 9999", range: "15-30 min" },
+            { name: "Curtidas Brasileiras", price: "R$ 9999", range: "0-15 min" },
+            { name: "Comentários Personalizados", price: "R$ 9999", range: "0-1H" },
+            { name: "Seguidores Mundiais", price: "R$ 9999", range: "0-15 min" }
         ],
-        curtidas: [
-            { name: "Curtidas Mundiais", value: "curtidas_mundiais" },
-            { name: "Curtidas Brasileiras", value: "curtidas_brasileiras" }
+        tiktok: [
+            { name: "Curtidas Mundiais", price: "R$ 9999", range: "0-15 min" },
+            { name: "Visualizações em Vídeos", price: "R$ 9999", range: "0-10 min" },
+            { name: "Seguidores Mundiais", price: "R$ 9999", range: "0-15 min" }
         ],
-        comentarios: [
-            { name: "Comentários Mundiais", value: "comentarios_mundiais" },
-            { name: "Comentários Brasileiros", value: "comentarios_brasileiros" }
+        kwai: [
+            { name: "Curtidas Mundiais", price: "R$ 9999", range: "0-15 min" },
+            { name: "Seguidores Mundiais", price: "R$ 9999", range: "0-15 min" }
         ],
-        visualizacoes: [
-            { name: "Visualizações Mundiais", value: "visualizacoes_mundiais" },
-            { name: "Visualizações Brasileiras", value: "visualizacoes_brasileiras" }
+        youtube: [
+            { name: "Visualizações em Vídeos", price: "R$ 9999", range: "0-15 min" },
+            { name: "Curtidas em Vídeos", price: "R$ 9999", range: "0-15 min" },
+            { name: "Inscritos no Canal", price: "R$ 9999", range: "0-30 min" }
         ],
-        inscritos: [
-            { name: "Inscritos Mundiais", value: "inscritos_mundiais" }
+        twitter: [
+            { name: "Seguidores Mundiais", price: "R$ 9999", range: "0-15 min" },
+            { name: "Curtidas em Tweets", price: "R$ 9999", range: "0-15 min" }
+        ],
+        whatsapp: [
+            { name: "Grupos de WhatsApp", price: "R$ 9999", range: "0-15 min" },
+            { name: "Curtidas em Status", price: "R$ 9999", range: "0-15 min" }
+        ],
+        spotify: [
+            { name: "Seguidores de Perfil", price: "R$ 9999", range: "0-15 min" },
+            { name: "Curtidas em Músicas", price: "R$ 9999", range: "0-15 min" }
+        ],
+        twitch: [
+            { name: "Seguidores de Canal", price: "R$ 9999", range: "0-15 min" },
+            { name: "Visualizações em Transmissões", price: "R$ 9999", range: "0-15 min" }
+        ],
+        google: [
+            { name: "Avaliações Positivas", price: "R$ 9999", range: "0-15 min" },
+            { name: "Seguidores de Página", price: "R$ 9999", range: "0-15 min" }
         ]
     };
 
-    const packages = {
-        seguidores_mundiais: [
-            { name: "500 Seguidores", price: "R$ 5,00" },
-            { name: "1000 Seguidores", price: "R$ 10,00" },
-            { name: "1500 Seguidores", price: "R$ 15,00" },
-            { name: "2000 Seguidores", price: "R$ 20,00" },
-            { name: "2500 Seguidores", price: "R$ 25,00" },
-            { name: "3000 Seguidores", price: "R$ 30,00" },
-            { name: "3500 Seguidores", price: "R$ 35,00" },
-            { name: "4000 Seguidores", price: "R$ 40,00" },
-            { name: "4500 Seguidores", price: "R$ 45,00" },
-            { name: "5000 Seguidores", price: "R$ 50,00" },
-            { name: "5500 Seguidores", price: "R$ 55,00" },
-            { name: "6000 Seguidores", price: "R$ 60,00" },
-            { name: "6500 Seguidores", price: "R$ 65,00" },
-            { name: "7000 Seguidores", price: "R$ 70,00" },
-            { name: "7500 Seguidores", price: "R$ 75,00" },
-            { name: "8000 Seguidores", price: "R$ 80,00" },
-            { name: "8500 Seguidores", price: "R$ 85,00" },
-            { name: "9000 Seguidores", price: "R$ 90,00" },
-            { name: "9500 Seguidores", price: "R$ 95,00" },
-            { name: "10000 Seguidores", price: "R$ 100,00" }
-        ],
-        seguidores_brasileiros: [
-            // Pacotes semelhantes para brasileiros
-        ],
-        curtidas_mundiais: [
-            // Pacotes para curtidas mundiais
-        ],
-        curtidas_brasileiras: [
-            // Pacotes para curtidas brasileiras
-        ],
-        comentarios_mundiais: [
-            // Pacotes para comentários mundiais
-        ],
-        comentarios_brasileiros: [
-            // Pacotes para comentários brasileiros
-        ],
-        visualizacoes_mundiais: [
-            // Pacotes para visualizações mundiais
-        ],
-        visualizacoes_brasileiras: [
-            // Pacotes para visualizações brasileiras
-        ],
-        inscritos_mundiais: [
-            // Pacotes para inscritos mundiais
-        ]
-    };
+    const packagesGlobais = [];
+    const packagesBR = [];
+    const maxFollowers = 10000;
+    const increment = 500;
 
-    $(document).ready(function() {
-        $('#category').on('change', function() {
-            const category = $(this).val();
-            const serviceSelect = $('#service');
-            serviceSelect.empty().append('<option value="" disabled selected>Selecione um serviço</option>');
-            $('#package').empty().append('<option value="" disabled selected>Selecione um pacote</option>');
-            
-            if (services[category]) {
-                services[category].forEach(service => {
-                    serviceSelect.append(`<option value="${service.value}">${service.name}</option>`);
-                });
-                $('#servicesDisplay').removeClass('show');
-            }
-        });
+    // Pacotes Mundiais
+    for (let i = increment; i <= maxFollowers; i += increment) {
+        packagesGlobais.push({ label: `${i} seguidores`, price: `R$ ${Math.floor(i / increment) * 5}` });
+    }
 
-        $('#service').on('change', function() {
-            const service = $(this).val();
-            const packageSelect = $('#package');
-            packageSelect.empty().append('<option value="" disabled selected>Selecione um pacote</option>');
-            
-            if (packages[service]) {
-                packages[service].forEach(pkg => {
-                    packageSelect.append(`<option value="${pkg.name}">${pkg.name} - ${pkg.price}</option>`);
-                });
-                $('#servicesDisplay').addClass('show');
-            }
-        });
+    // Pacotes Brasileiros
+    let price = 12;
+    for (let i = increment; i <= maxFollowers; i += increment) {
+        packagesBR.push({ label: `${i} seguidores`, price: `R$ ${price}` });
+        price += 12;
+    }
+
+    function populateServices(category) {
+        const serviceSelect = $('#service');
+        serviceSelect.empty().append('<option value="" disabled selected>Selecione um serviço</option>');
+
+        if (services[category]) {
+            services[category].forEach(service => {
+                serviceSelect.append(`<option value="${service.name}">${service.name} - ${service.price}</option>`);
+            });
+        }
+    }
+
+    function populatePackages(service) {
+        const packageSelect = $('#package');
+        packageSelect.empty().append('<option value="" disabled selected>Selecione um pacote</option>');
+
+        if (service.includes("Mundiais")) {
+            packagesGlobais.forEach(pkg => {
+                packageSelect.append(`<option value="${pkg.label}">${pkg.label} - ${pkg.price}</option>`);
+            });
+        } else if (service.includes("Brasileiras")) {
+            packagesBR.forEach(pkg => {
+                packageSelect.append(`<option value="${pkg.label}">${pkg.label} - ${pkg.price}</option>`);
+            });
+        }
+    }
+
+    $('#category').on('change', function() {
+        const category = $(this).val();
+        populateServices(category);
+    });
+
+    $('#service').on('change', function() {
+        const service = $(this).val();
+        populatePackages(service);
     });
 </script>
+
 </body>
 </html>
