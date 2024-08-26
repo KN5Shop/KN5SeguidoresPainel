@@ -220,30 +220,40 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.min.js"></script>
 <script>
-    // Função para carregar o conteúdo de services.html
-    function loadServices() {
-        fetch('services.html')
-            .then(response => response.text())
-            .then(data => {
-                // Cria um elemento temporário para usar o DOMParser
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = data;
+    const services = {
+        instagram: [
+            { name: "Visualizações em vídeo | Reel / IGTV | Rápido", price: "R$ 9999", range: "0-10 min" },
+            { name: "Curtidas Mundiais", price: "R$ 9999", range: "0-5 min" },
+            { name: "Curtidas Orgânicas BR", price: "R$ 9999", range: "15-30 min" },
+            { name: "Curtidas Brasileiras", price: "R$ 9999", range: "0-15 min" },
+            { name: "Comentários Personalizados", price: "R$ 9999", range: "0-1H" },
+            { name: "Seguidores Orgânicos", price: "R$ 9999", range: "6-12H" }
+        ],
+        tiktok: [
+            { name: "Seguidores Mundiais", price: "R$ 9999", range: "0-15 Min" },
+            { name: "Seguidores Brasileiros", price: "R$ 9999", range: "0-1H" }
+        ],
+        kwai: [
+            { name: "Curtidas", price: "R$ 9999", range: "0-30 min" },
+            { name: "Seguidores", price: "R$ 9999", range: "1-2H" }
+        ],
+        youtube: [
+            { name: "Likes", price: "R$ 9999", range: "0-1H" },
+            { name: "Inscritos Mundiais", price: "R$ 9999", range: "1-2H" }
+        ]
+    };
 
-                // Extrai o conteúdo das seções desejadas
-                const categorySection = tempDiv.querySelector('#categories');
-                const serviceSection = tempDiv.querySelector('#services');
-                const packageSection = tempDiv.querySelector('#packages');
-
-                // Preenche as opções do formulário
-                document.getElementById('category').innerHTML = categorySection.innerHTML;
-                document.getElementById('service').innerHTML = serviceSection.innerHTML;
-                document.getElementById('package').innerHTML = packageSection.innerHTML;
-            })
-            .catch(error => console.error('Erro ao carregar services.html:', error));
-    }
-
-    // Chama a função ao carregar a página
-    document.addEventListener('DOMContentLoaded', loadServices);
+    const packages = {
+        "Visualizações em vídeo | Reel / IGTV | Rápido": [
+            { name: "Pacote Básico", price: "R$ 9999" },
+            { name: "Pacote Avançado", price: "R$ 14999" }
+        ],
+        "Curtidas Mundiais": [
+            { name: "Pacote Básico", price: "R$ 9999" },
+            { name: "Pacote Avançado", price: "R$ 14999" }
+        ],
+        // Adicione pacotes para outros serviços conforme necessário
+    };
 
     document.getElementById('category').onchange = function() {
         const category = this.value;
@@ -252,7 +262,6 @@
         // Limpar opções existentes
         serviceSelect.innerHTML = '<option value="" disabled selected>Selecione um serviço</option>';
 
-        // Carregar serviços da categoria selecionada
         if (services[category]) {
             services[category].forEach(service => {
                 const option = document.createElement('option');
@@ -270,7 +279,6 @@
         // Limpar opções existentes
         packageSelect.innerHTML = '<option value="" disabled selected>Selecione um pacote</option>';
 
-        // Carregar pacotes do serviço selecionado
         if (packages[service]) {
             packages[service].forEach(pkg => {
                 const option = document.createElement('option');
