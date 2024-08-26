@@ -177,15 +177,10 @@
                     <label for="category">Categoria:</label>
                     <select id="category" name="category" class="form-control" required>
                         <option value="" disabled selected>Selecione uma categoria</option>
-                        <option value="instagram">Instagram</option>
-                        <option value="tiktok">TikTok</option>
-                        <option value="kwai">Kwai</option>
-                        <option value="youtube">YouTube</option>
-                        <option value="twitter">Twitter</option>
-                        <option value="whatsapp">WhatsApp</option>
-                        <option value="spotify">Spotify</option>
-                        <option value="twitch">Twitch</option>
-                        <option value="google">Google</option>
+                        <option value="seguidores">Seguidores</option>
+                        <option value="curtidas">Curtidas</option>
+                        <option value="comentarios">Comentários</option>
+                        <option value="visualizacoes">Visualizações</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -221,101 +216,100 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.min.js"></script>
 <script>
     const services = {
-        instagram: [
-            { name: "Visualizações em vídeo | Reel / IGTV | Rápido", price: "R$ 9999", range: "0-10 min" },
-            { name: "Curtidas Mundiais", price: "R$ 9999", range: "0-5 min" },
-            { name: "Curtidas Orgânicas BR", price: "R$ 9999", range: "15-30 min" },
-            { name: "Curtidas Brasileiras", price: "R$ 9999", range: "0-15 min" },
-            { name: "Comentários Personalizados", price: "R$ 9999", range: "0-1H" },
-            { name: "Seguidores Mundiais", price: "R$ 9999", range: "0-15 min" }
-        ],
-        tiktok: [
-            { name: "Curtidas Mundiais", price: "R$ 9999", range: "0-15 min" },
-            { name: "Visualizações em Vídeos", price: "R$ 9999", range: "0-10 min" },
-            { name: "Seguidores Mundiais", price: "R$ 9999", range: "0-15 min" }
-        ],
-        kwai: [
-            { name: "Curtidas Mundiais", price: "R$ 9999", range: "0-15 min" },
-            { name: "Seguidores Mundiais", price: "R$ 9999", range: "0-15 min" }
-        ],
-        youtube: [
-            { name: "Visualizações em Vídeos", price: "R$ 9999", range: "0-15 min" },
-            { name: "Curtidas em Vídeos", price: "R$ 9999", range: "0-15 min" },
-            { name: "Inscritos no Canal", price: "R$ 9999", range: "0-30 min" }
-        ],
-        twitter: [
-            { name: "Seguidores Mundiais", price: "R$ 9999", range: "0-15 min" },
-            { name: "Curtidas em Tweets", price: "R$ 9999", range: "0-15 min" }
-        ],
-        whatsapp: [
-            { name: "Grupos de WhatsApp", price: "R$ 9999", range: "0-15 min" },
-            { name: "Curtidas em Status", price: "R$ 9999", range: "0-15 min" }
-        ],
-        spotify: [
-            { name: "Seguidores de Perfil", price: "R$ 9999", range: "0-15 min" },
-            { name: "Curtidas em Músicas", price: "R$ 9999", range: "0-15 min" }
-        ],
-        twitch: [
-            { name: "Seguidores de Canal", price: "R$ 9999", range: "0-15 min" },
-            { name: "Visualizações em Transmissões", price: "R$ 9999", range: "0-15 min" }
-        ],
-        google: [
-            { name: "Avaliações Positivas", price: "R$ 9999", range: "0-15 min" },
-            { name: "Seguidores de Página", price: "R$ 9999", range: "0-15 min" }
+        seguidores: [
+            { name: "Seguidores Mundiais", type: "mundiais" },
+            { name: "Seguidores Brasileiros", type: "brasileiros" }
         ]
     };
 
-    const packagesGlobais = [];
-    const packagesBR = [];
-    const maxFollowers = 10000;
-    const increment = 500;
+    const packages = {
+        mundiais: [
+            { range: "500", price: "R$ 5,00" },
+            { range: "1000", price: "R$ 10,00" },
+            { range: "1500", price: "R$ 15,00" },
+            { range: "2000", price: "R$ 20,00" },
+            { range: "2500", price: "R$ 25,00" },
+            { range: "3000", price: "R$ 30,00" },
+            { range: "3500", price: "R$ 35,00" },
+            { range: "4000", price: "R$ 40,00" },
+            { range: "4500", price: "R$ 45,00" },
+            { range: "5000", price: "R$ 50,00" },
+            { range: "5500", price: "R$ 55,00" },
+            { range: "6000", price: "R$ 60,00" },
+            { range: "6500", price: "R$ 65,00" },
+            { range: "7000", price: "R$ 70,00" },
+            { range: "7500", price: "R$ 75,00" },
+            { range: "8000", price: "R$ 80,00" },
+            { range: "8500", price: "R$ 85,00" },
+            { range: "9000", price: "R$ 90,00" },
+            { range: "9500", price: "R$ 95,00" },
+            { range: "10000", price: "R$ 100,00" }
+        ],
+        brasileiros: [
+            { range: "500", price: "R$ 12,00" },
+            { range: "1000", price: "R$ 24,00" },
+            { range: "1500", price: "R$ 36,00" },
+            { range: "2000", price: "R$ 48,00" },
+            { range: "2500", price: "R$ 60,00" },
+            { range: "3000", price: "R$ 72,00" },
+            { range: "3500", price: "R$ 84,00" },
+            { range: "4000", price: "R$ 96,00" },
+            { range: "4500", price: "R$ 108,00" },
+            { range: "5000", price: "R$ 120,00" },
+            { range: "5500", price: "R$ 132,00" },
+            { range: "6000", price: "R$ 144,00" },
+            { range: "6500", price: "R$ 156,00" },
+            { range: "7000", price: "R$ 168,00" },
+            { range: "7500", price: "R$ 180,00" },
+            { range: "8000", price: "R$ 192,00" },
+            { range: "8500", price: "R$ 204,00" },
+            { range: "9000", price: "R$ 216,00" },
+            { range: "9500", price: "R$ 228,00" },
+            { range: "10000", price: "R$ 240,00" }
+        ]
+    };
 
-    // Pacotes Mundiais
-    for (let i = increment; i <= maxFollowers; i += increment) {
-        packagesGlobais.push({ label: `${i} seguidores`, price: `R$ ${Math.floor(i / increment) * 5}` });
-    }
+    document.getElementById('category').addEventListener('change', function() {
+        const category = this.value;
+        const serviceSelect = document.getElementById('service');
+        const packageSelect = document.getElementById('package');
+        const serviceColumn = document.getElementById('serviceColumn');
 
-    // Pacotes Brasileiros
-    let price = 12;
-    for (let i = increment; i <= maxFollowers; i += increment) {
-        packagesBR.push({ label: `${i} seguidores`, price: `R$ ${price}` });
-        price += 12;
-    }
-
-    function populateServices(category) {
-        const serviceSelect = $('#service');
-        serviceSelect.empty().append('<option value="" disabled selected>Selecione um serviço</option>');
-
-        if (services[category]) {
+        serviceSelect.innerHTML = '<option value="" disabled selected>Selecione um serviço</option>';
+        packageSelect.innerHTML = '<option value="" disabled selected>Selecione um pacote</option>';
+        serviceColumn.innerHTML = '';
+        
+        if (category && services[category]) {
             services[category].forEach(service => {
-                serviceSelect.append(`<option value="${service.name}">${service.name} - ${service.price}</option>`);
+                const option = document.createElement('option');
+                option.value = service.type;
+                option.textContent = service.name;
+                serviceSelect.appendChild(option);
+
+                // Display services
+                const serviceItem = document.createElement('div');
+                serviceItem.className = 'service-item';
+                serviceItem.textContent = service.name;
+                serviceColumn.appendChild(serviceItem);
             });
+            document.getElementById('servicesDisplay').classList.add('show');
         }
-    }
-
-    function populatePackages(service) {
-        const packageSelect = $('#package');
-        packageSelect.empty().append('<option value="" disabled selected>Selecione um pacote</option>');
-
-        if (service.includes("Mundiais")) {
-            packagesGlobais.forEach(pkg => {
-                packageSelect.append(`<option value="${pkg.label}">${pkg.label} - ${pkg.price}</option>`);
-            });
-        } else if (service.includes("Brasileiras")) {
-            packagesBR.forEach(pkg => {
-                packageSelect.append(`<option value="${pkg.label}">${pkg.label} - ${pkg.price}</option>`);
-            });
-        }
-    }
-
-    $('#category').on('change', function() {
-        const category = $(this).val();
-        populateServices(category);
     });
 
-    $('#service').on('change', function() {
-        const service = $(this).val();
-        populatePackages(service);
+    document.getElementById('service').addEventListener('change', function() {
+        const serviceType = this.value;
+        const packageSelect = document.getElementById('package');
+
+        packageSelect.innerHTML = '<option value="" disabled selected>Selecione um pacote</option>';
+        
+        if (serviceType && packages[serviceType]) {
+            packages[serviceType].forEach(pkg => {
+                const option = document.createElement('option');
+                option.value = pkg.range;
+                option.textContent = `Até ${pkg.range} seguidores - ${pkg.price}`;
+                packageSelect.appendChild(option);
+            });
+        }
     });
 </script>
 
