@@ -177,15 +177,7 @@
                     <label for="category">Categoria:</label>
                     <select id="category" name="category" class="form-control" required>
                         <option value="" disabled selected>Selecione uma categoria</option>
-                        <option value="instagram">Instagram</option>
-                        <option value="tiktok">TikTok</option>
-                        <option value="kwai">Kwai</option>
-                        <option value="youtube">YouTube</option>
-                        <option value="twitter">Twitter</option>
-                        <option value="whatsapp">WhatsApp</option>
-                        <option value="spotify">Spotify</option>
-                        <option value="twitch">Twitch</option>
-                        <option value="google">Google</option>
+                        <option value="seguidores">Seguidores</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -207,11 +199,6 @@
         </div>
     </div>
 
-    <!-- Section to display selected services -->
-    <div id="servicesDisplay" class="service-list">
-        <div class="service-column" id="serviceColumn"></div>
-    </div>
-
     <div class="footer">
         &copy; 2024 KN5 Seguidores - <a href="https://api.whatsapp.com/send?phone=+5519995271979&text=Ol%C3%A1+vim+pelo+seu+site+KN5+Shop%2C+tudo+bem%3F+%F0%9F%98%83">Contato via WhatsApp</a>
     </div>
@@ -221,38 +208,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.min.js"></script>
 <script>
     const services = {
-        instagram: [
-            { name: "Visualizações em vídeo | Reel / IGTV | Rápido", price: "R$ 9999", range: "0-10 min" },
-            { name: "Curtidas Mundiais", price: "R$ 9999", range: "0-5 min" },
-            { name: "Curtidas Orgânicas BR", price: "R$ 9999", range: "15-30 min" },
-            { name: "Curtidas Brasileiras", price: "R$ 9999", range: "0-15 min" },
-            { name: "Comentários Personalizados", price: "R$ 9999", range: "0-1H" },
-            { name: "Seguidores Orgânicos", price: "R$ 9999", range: "6-12H" }
-        ],
-        tiktok: [
-            { name: "Seguidores Mundiais", price: "R$ 9999", range: "0-15 Min" },
-            { name: "Seguidores Brasileiros", price: "R$ 9999", range: "0-1H" }
-        ],
-        kwai: [
-            { name: "Curtidas", price: "R$ 9999", range: "0-30 min" },
-            { name: "Seguidores", price: "R$ 9999", range: "1-2H" }
-        ],
-        youtube: [
-            { name: "Likes", price: "R$ 9999", range: "0-1H" },
-            { name: "Inscritos Mundiais", price: "R$ 9999", range: "1-2H" }
+        seguidores: [
+            { name: "Mundiais", price: "R$ 20.00", range: "0-15 Min" },
+            { name: "Brasileiros", price: "R$ 20.00", range: "0-1H" }
         ]
     };
 
     const packages = {
-        "Visualizações em vídeo | Reel / IGTV | Rápido": [
-            { name: "Pacote Básico", price: "R$ 9999" },
-            { name: "Pacote Avançado", price: "R$ 14999" }
+        "Mundiais": [
+            { name: "Pacote Básico", price: "R$ 40.00" },
+            { name: "Pacote Avançado", price: "R$ 60.00" }
         ],
-        "Curtidas Mundiais": [
-            { name: "Pacote Básico", price: "R$ 9999" },
-            { name: "Pacote Avançado", price: "R$ 14999" }
-        ],
-        // Adicione pacotes para outros serviços conforme necessário
+        "Brasileiros": [
+            { name: "Pacote Básico", price: "R$ 40.00" },
+            { name: "Pacote Avançado", price: "R$ 60.00" }
+        ]
     };
 
     document.getElementById('category').onchange = function() {
