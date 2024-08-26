@@ -220,7 +220,7 @@
         ],
         curtidas: [
             { name: "Curtidas Mundiais", type: "mundiais" },
-            { name: "Curtidas Brasileiros", type: "brasileiros" }
+            { name: "Curtidas Brasileiras", type: "brasileiros" }
         ],
         comentarios: [
             { name: "Comentários Mundiais", type: "mundiais" },
@@ -228,107 +228,68 @@
         ],
         visualizacoes: [
             { name: "Visualizações Mundiais", type: "mundiais" },
-            { name: "Visualizações Brasileiros", type: "brasileiros" }
+            { name: "Visualizações Brasileiras", type: "brasileiros" }
         ]
     };
 
     const packages = {
-        seguidores: {
-            mundiais: [
-                { range: "500", price: "R$ 5,00" },
-                { range: "1000", price: "R$ 10,00" },
-                { range: "1500", price: "R$ 15,00" },
-                { range: "2000", price: "R$ 20,00" },
-                { range: "2500", price: "R$ 25,00" },
-                { range: "3000", price: "R$ 30,00" },
-                { range: "3500", price: "R$ 35,00" },
-                { range: "4000", price: "R$ 40,00" },
-                { range: "4500", price: "R$ 45,00" },
-                { range: "5000", price: "R$ 50,00" }
-            ],
-            brasileiros: [
-                { range: "500", price: "R$ 12,00" },
-                { range: "1000", price: "R$ 24,00" },
-                { range: "1500", price: "R$ 36,00" },
-                { range: "2000", price: "R$ 48,00" },
-                { range: "2500", price: "R$ 60,00" },
-                { range: "3000", price: "R$ 72,00" }
-            ]
-        },
-        curtidas: {
-            mundiais: [
-                { range: "500", price: "R$ 8,00" },
-                { range: "1000", price: "R$ 16,00" }
-            ],
-            brasileiros: [
-                { range: "500", price: "R$ 14,00" },
-                { range: "1000", price: "R$ 28,00" }
-            ]
-        },
-        comentarios: {
-            mundiais: [
-                { range: "10", price: "R$ 5,00" },
-                { range: "20", price: "R$ 10,00" }
-            ],
-            brasileiros: [
-                { range: "10", price: "R$ 12,00" },
-                { range: "20", price: "R$ 24,00" }
-            ]
-        },
-        visualizacoes: {
-            mundiais: [
-                { range: "1000", price: "R$ 3,00" },
-                { range: "2000", price: "R$ 6,00" }
-            ],
-            brasileiros: [
-                { range: "1000", price: "R$ 6,00" },
-                { range: "2000", price: "R$ 12,00" }
-            ]
-        }
+        mundiais: [
+            { range: "500", price: "R$ 5,00" },
+            { range: "1000", price: "R$ 10,00" },
+            { range: "1500", price: "R$ 15,00" },
+            { range: "2000", price: "R$ 20,00" },
+            { range: "2500", price: "R$ 25,00" },
+            { range: "3000", price: "R$ 30,00" },
+            { range: "3500", price: "R$ 35,00" },
+            { range: "4000", price: "R$ 40,00" }
+        ],
+        brasileiros: [
+            { range: "500", price: "R$ 5,00" },
+            { range: "1000", price: "R$ 10,00" },
+            { range: "1500", price: "R$ 15,00" },
+            { range: "2000", price: "R$ 20,00" },
+            { range: "2500", price: "R$ 25,00" },
+            { range: "3000", price: "R$ 30,00" },
+            { range: "3500", price: "R$ 35,00" },
+            { range: "4000", price: "R$ 40,00" }
+        ]
     };
 
-    document.getElementById('category').addEventListener('change', function() {
-        const category = this.value;
-        const serviceSelect = document.getElementById('service');
-        const packageSelect = document.getElementById('package');
-        const serviceColumn = document.getElementById('serviceColumn');
+    $(document).ready(function() {
+        $('#category').change(function() {
+            const category = $(this).val();
+            const serviceSelect = $('#service');
+            const packageSelect = $('#package');
+            
+            serviceSelect.empty().append('<option value="" disabled selected>Selecione um serviço</option>');
+            packageSelect.empty().append('<option value="" disabled selected>Selecione um pacote</option>');
+            
+            if (category && services[category]) {
+                services[category].forEach(service => {
+                    serviceSelect.append(`<option value="${service.name}">${service.name}</option>`);
+                });
+            }
+        });
 
-        // Limpa os serviços e pacotes anteriores
-        serviceSelect.innerHTML = '<option value="" disabled selected>Selecione um serviço</option>';
-        packageSelect.innerHTML = '<option value="" disabled selected>Selecione um pacote</option>';
-        serviceColumn.innerHTML = '';
+        $('#service').change(function() {
+            const category = $('#category').val();
+            const service = $(this).val();
+            const packageSelect = $('#package');
 
-        // Exibe apenas os serviços da categoria selecionada
-        if (category && services[category]) {
-            services[category].forEach(service => {
-                const option = document.createElement('option');
-                option.value = service.type;
-                option.textContent = `${service.name}`;
-                serviceSelect.appendChild(option);
-            });
-            document.getElementById('servicesDisplay').classList.add('show');
-        } else {
-            document.getElementById('servicesDisplay').classList.remove('show');
-        }
-    });
+            packageSelect.empty().append('<option value="" disabled selected>Selecione um pacote</option>');
+            
+            if (category && service) {
+                const type = services[category].find(s => s.name === service).type;
+                packages[type].forEach(pkg => {
+                    packageSelect.append(`<option value="${pkg.range}">${pkg.range} - ${pkg.price}</option>`);
+                });
+            }
+        });
 
-    document.getElementById('service').addEventListener('change', function() {
-        const serviceType = this.value;
-        const category = document.getElementById('category').value; // Captura a categoria selecionada
-        const packageSelect = document.getElementById('package');
-
-        // Limpa os pacotes anteriores
-        packageSelect.innerHTML = '<option value="" disabled selected>Selecione um pacote</option>';
-
-        // Exibe apenas os pacotes da categoria e tipo de serviço selecionados
-        if (serviceType && packages[category] && packages[category][serviceType]) {
-            packages[category][serviceType].forEach(pkg => {
-                const option = document.createElement('option');
-                option.value = pkg.range;
-                option.textContent = `Até ${pkg.range} - ${pkg.price}`;
-                packageSelect.appendChild(option);
-            });
-        }
+        $('#orderForm').submit(function(event) {
+            event.preventDefault();
+            alert('Pedido enviado com sucesso!');
+        });
     });
 </script>
 
