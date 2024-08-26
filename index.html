@@ -178,7 +178,7 @@
             Formulário de Pedido
         </div>
         <div class="card-body">
-            <form id="orderForm">
+            <form id="orderForm" method="get" action="https://api.whatsapp.com/send">
                 <div class="form-group">
                     <label for="client_name">Nome:</label>
                     <input type="text" id="client_name" name="client_name" class="form-control" placeholder="Digite seu nome" required>
@@ -265,7 +265,12 @@
                     const packageRange = $('#package').val();
 
                     if (name && category && service && packageRange) {
-                        feedback.text(`Obrigado, ${name}! Seu pedido para ${service} na categoria ${category} com pacote ${packageRange} foi recebido.`);
+                        // Construir a URL de envio do WhatsApp com as informações do pedido
+                        const message = `Olá vim pelo seu site KN5 Shop, tudo bem? 😊%0A%0A*Nome:* ${name}%0A*Categoria:* ${category}%0A*Serviço:* ${service}%0A*Pacote:* ${packageRange}`;
+                        const whatsappURL = `https://api.whatsapp.com/send?phone=+5519995271979&text=${encodeURIComponent(message)}`;
+
+                        // Redirecionar para o WhatsApp
+                        window.location.href = whatsappURL;
                     } else {
                         feedback.text('Por favor, preencha todos os campos.');
                     }
