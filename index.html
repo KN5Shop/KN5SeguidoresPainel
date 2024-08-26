@@ -217,6 +217,18 @@
         seguidores: [
             { name: "Seguidores Mundiais", type: "mundiais" },
             { name: "Seguidores Brasileiros", type: "brasileiros" }
+        ],
+        curtidas: [
+            { name: "Curtidas Mundiais", type: "mundiais" },
+            { name: "Curtidas Brasileiras", type: "brasileiros" }
+        ],
+        comentarios: [
+            { name: "Comentários Mundiais", type: "mundiais" },
+            { name: "Comentários Brasileiros", type: "brasileiros" }
+        ],
+        visualizacoes: [
+            { name: "Visualizações Mundiais", type: "mundiais" },
+            { name: "Visualizações Brasileiras", type: "brasileiros" }
         ]
     };
 
@@ -281,7 +293,7 @@
             services[category].forEach(service => {
                 const option = document.createElement('option');
                 option.value = service.type;
-                option.textContent = service.name;
+                option.textContent = `${service.name}`;
                 serviceSelect.appendChild(option);
             });
             document.getElementById('servicesDisplay').classList.add('show');
