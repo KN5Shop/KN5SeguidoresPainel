@@ -179,13 +179,9 @@
                         <option value="" disabled selected>Selecione uma categoria</option>
                         <option value="seguidores">Seguidores</option>
                         <option value="curtidas">Curtidas</option>
-                        <option value="visualizacoes">Visualizações</option>
                         <option value="comentarios">Comentários</option>
-                        <option value="compartilhamentos">Compartilhamentos</option>
+                        <option value="visualizacoes">Visualizações</option>
                         <option value="inscritos">Inscritos</option>
-                        <option value="reacoes">Reações</option>
-                        <option value="downloads">Downloads</option>
-                        <option value="mensagens">Mensagens</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -207,6 +203,11 @@
         </div>
     </div>
 
+    <!-- Section to display selected services -->
+    <div id="servicesDisplay" class="service-list">
+        <div class="service-column" id="serviceColumn"></div>
+    </div>
+
     <div class="footer">
         &copy; 2024 KN5 Seguidores - <a href="https://api.whatsapp.com/send?phone=+5519995271979&text=Ol%C3%A1+vim+pelo+seu+site+KN5+Shop%2C+tudo+bem%3F+%F0%9F%98%83">Contato via WhatsApp</a>
     </div>
@@ -217,141 +218,20 @@
 <script>
     const services = {
         seguidores: [
-            { name: "Mundiais", price: "R$ 20.00", range: "0-15 Min" },
-            { name: "Brasileiros", price: "R$ 20.00", range: "0-1H" }
+            { name: "Seguidores Mundiais", price: "R$ 10,00", range: "0-24H" },
+            { name: "Seguidores Brasileiros", price: "R$ 10,00", range: "0-24H" }
         ],
         curtidas: [
-            { name: "Mundiais", price: "R$ 20.00", range: "0-15 Min" },
-            { name: "Brasileiras", price: "R$ 20.00", range: "0-1H" }
-        ],
-        visualizacoes: [
-            { name: "Rápido", price: "R$ 20.00", range: "0-15 Min" },
-            { name: "Normal", price: "R$ 20.00", range: "1-2H" }
+            { name: "Curtidas Mundiais", price: "R$ 10,00", range: "0-24H" },
+            { name: "Curtidas Brasileiras", price: "R$ 10,00", range: "0-24H" }
         ],
         comentarios: [
-            { name: "Personalizados", price: "R$ 30.00", range: "0-1H" }
+            { name: "Comentários Mundiais", price: "R$ 10,00", range: "0-24H" },
+            { name: "Comentários Brasileiros", price: "R$ 10,00", range: "0-24H" }
         ],
-        compartilhamentos: [
-            { name: "Mundiais", price: "R$ 30.00", range: "0-15 Min" },
-            { name: "Brasileiros", price: "R$ 30.00", range: "0-1H" }
+        visualizacoes: [
+            { name: "Visualizações Mundiais", price: "R$ 10,00", range: "0-24H" },
+            { name: "Visualizações Brasileiras", price: "R$ 10,00", range: "0-24H" }
         ],
         inscritos: [
-            { name: "Mundiais", price: "R$ 30.00", range: "0-1H" },
-            { name: "Brasileiros", price: "R$ 30.00", range: "1-2H" }
-        ],
-        reacoes: [
-            { name: "Mundiais", price: "R$ 30.00", range: "0-15 Min" },
-            { name: "Brasileiras", price: "R$ 30.00", range: "0-1H" }
-        ],
-        downloads: [
-            { name: "Mundiais", price: "R$ 30.00", range: "0-1H" }
-        ],
-        mensagens: [
-            { name: "Mundiais", price: "R$ 30.00", range: "0-1H" }
-        ]
-    };
-
-    const packages = {
-        "Mundiais": [
-            { name: "Pacote Básico", price: "R$ 40.00" },
-            { name: "Pacote Avançado", price: "R$ 60.00" }
-        ],
-        "Brasileiros": [
-            { name: "Pacote Básico", price: "R$ 40.00" },
-            { name: "Pacote Avançado", price: "R$ 60.00" }
-        ],
-        "Rápido": [
-            { name: "Pacote Básico", price: "R$ 40.00" },
-            { name: "Pacote Avançado", price: "R$ 60.00" }
-        ],
-        "Normal": [
-            { name: "Pacote Básico", price: "R$ 40.00" },
-            { name: "Pacote Avançado", price: "R$ 60.00" }
-        ],
-        "Personalizados": [
-            { name: "Pacote Básico", price: "R$ 40.00" },
-            { name: "Pacote Avançado", price: "R$ 60.00" }
-        ],
-        "Compartilhamentos Mundiais": [
-            { name: "Pacote Básico", price: "R$ 40.00" },
-            { name: "Pacote Avançado", price: "R$ 60.00" }
-        ],
-        "Compartilhamentos Brasileiros": [
-            { name: "Pacote Básico", price: "R$ 40.00" },
-            { name: "Pacote Avançado", price: "R$ 60.00" }
-        ],
-        "Inscritos Mundiais": [
-            { name: "Pacote Básico", price: "R$ 40.00" },
-            { name: "Pacote Avançado", price: "R$ 60.00" }
-        ],
-        "Inscritos Brasileiros": [
-            { name: "Pacote Básico", price: "R$ 40.00" },
-            { name: "Pacote Avançado", price: "R$ 60.00" }
-        ],
-        "Reações Mundiais": [
-            { name: "Pacote Básico", price: "R$ 40.00" },
-            { name: "Pacote Avançado", price: "R$ 60.00" }
-        ],
-        "Reações Brasileiras": [
-            { name: "Pacote Básico", price: "R$ 40.00" },
-            { name: "Pacote Avançado", price: "R$ 60.00" }
-        ],
-        "Downloads Mundiais": [
-            { name: "Pacote Básico", price: "R$ 40.00" },
-            { name: "Pacote Avançado", price: "R$ 60.00" }
-        ],
-        "Mensagens Mundiais": [
-            { name: "Pacote Básico", price: "R$ 40.00" },
-            { name: "Pacote Avançado", price: "R$ 60.00" }
-        ]
-    };
-
-    document.getElementById('category').onchange = function() {
-        const category = this.value;
-        const serviceSelect = document.getElementById('service');
-
-        // Limpar opções existentes
-        serviceSelect.innerHTML = '<option value="" disabled selected>Selecione um serviço</option>';
-
-        if (services[category]) {
-            services[category].forEach(service => {
-                const option = document.createElement('option');
-                option.value = service.name;
-                option.textContent = service.name;
-                serviceSelect.appendChild(option);
-            });
-        }
-    };
-
-    document.getElementById('service').onchange = function() {
-        const service = this.value;
-        const packageSelect = document.getElementById('package');
-
-        // Limpar opções existentes
-        packageSelect.innerHTML = '<option value="" disabled selected>Selecione um pacote</option>';
-
-        if (packages[service]) {
-            packages[service].forEach(pkg => {
-                const option = document.createElement('option');
-                option.value = pkg.name;
-                option.textContent = pkg.name;
-                packageSelect.appendChild(option);
-            });
-        }
-    };
-
-    document.getElementById('orderForm').onsubmit = function(e) {
-        e.preventDefault();
-
-        const clientName = encodeURIComponent(document.getElementById('client_name').value);
-        const category = encodeURIComponent(document.getElementById('category').value);
-        const service = encodeURIComponent(document.getElementById('service').value);
-        const packageChoice = encodeURIComponent(document.getElementById('package').value);
-        const message = `Ol%C3%A1+vim+pelo+seu+site+KN5+Seguidores%2C+o+cliente+${clientName}+solicitou+o+seguinte+servi%C3%A7o%3A+${service}%2C+Categoria%3A+${category}%2C+Pacote%3A+${packageChoice}`;
-
-        window.open(`https://api.whatsapp.com/send?phone=+5519995271979&text=${message}`);
-    };
-</script>
-
-</body>
-</html>
+            { name: "Inscritos Mundiais", price:
