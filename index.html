@@ -256,48 +256,50 @@
         }
     };
 
-    const serviceSelect = $('#service');
-    const packageSelect = $('#package');
-    const feedback = $('#feedback');
+    $(document).ready(function() {
+        $('#category').on('change', function() {
+            const category = $(this).val();
+            const $service = $('#service');
+            const $package = $('#package');
+            $service.empty().append('<option value="" disabled selected>Selecione um serviço</option>');
+            $package.empty().append('<option value="" disabled selected>Selecione um pacote</option>');
+            $('#feedback').empty();
 
-    $('#category').on('change', function() {
-        const category = $(this).val();
-        serviceSelect.empty().append('<option value="" disabled selected>Selecione um serviço</option>');
-        packageSelect.empty().append('<option value="" disabled selected>Selecione um pacote</option>');
-        feedback.empty();
-
-        if (category && services[category]) {
-            for (const [serviceName, serviceOptions] of Object.entries(services[category])) {
-                serviceSelect.append(`<option value="${serviceName}">${serviceName}</option>`);
+            if (category) {
+                const servicesList = Object.keys(services[category]);
+                servicesList.forEach(service => {
+                    $service.append(`<option value="${service}">${service}</option>`);
+                });
             }
-        }
-    });
+        });
 
-    serviceSelect.on('change', function() {
-        const category = $('#category').val();
-        const service = $(this).val();
-        packageSelect.empty().append('<option value="" disabled selected>Selecione um pacote</option>');
-        feedback.empty();
+        $('#service').on('change', function() {
+            const category = $('#category').val();
+            const service = $(this).val();
+            const $package = $('#package');
+            $package.empty().append('<option value="" disabled selected>Selecione um pacote</option>');
+            $('#feedback').empty();
 
-        if (category && service && services[category] && services[category][service]) {
-            services[category][service].forEach(pkg => {
-                packageSelect.append(`<option value="${pkg.range}">${pkg.range} - ${pkg.price}</option>`);
-            });
-        }
-    });
+            if (service) {
+                services[category][service].forEach(pkg => {
+                    $package.append(`<option value="${pkg.range}">${pkg.range} - ${pkg.price}</option>`);
+                });
+            }
+        });
 
-    $('#orderForm').on('submit', function(event) {
-        event.preventDefault();
-        const name = $('#client_name').val();
-        const category = $('#category').val();
-        const service = $('#service').val();
-        const packageRange = $('#package').val();
+        $('#orderForm').on('submit', function(e) {
+            e.preventDefault();
+            const name = $('#client_name').val();
+            const category = $('#category').val();
+            const service = $('#service').val();
+            const packageRange = $('#package').val();
 
-        if (name && category && service && packageRange) {
-            feedback.text(`Obrigado, ${name}! Seu pedido para ${service} na categoria ${category} com pacote ${packageRange} foi recebido.`);
-        } else {
-            feedback.text('Por favor, preencha todos os campos.');
-        }
+            if (name && category && service && packageRange) {
+                $('#feedback').text(`Obrigado, ${name}! Seu pedido para ${service} na categoria ${category} com pacote ${packageRange} foi recebido.`);
+            } else {
+                $('#feedback').text('Por favor, preencha todos os campos.');
+            }
+        });
     });
 </script>
 
