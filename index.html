@@ -178,6 +178,14 @@
                     <select id="category" name="category" class="form-control" required>
                         <option value="" disabled selected>Selecione uma categoria</option>
                         <option value="seguidores">Seguidores</option>
+                        <option value="curtidas">Curtidas</option>
+                        <option value="visualizacoes">Visualizações</option>
+                        <option value="comentarios">Comentários</option>
+                        <option value="compartilhamentos">Compartilhamentos</option>
+                        <option value="inscritos">Inscritos</option>
+                        <option value="reacoes">Reações</option>
+                        <option value="downloads">Downloads</option>
+                        <option value="mensagens">Mensagens</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -211,6 +219,35 @@
         seguidores: [
             { name: "Mundiais", price: "R$ 20.00", range: "0-15 Min" },
             { name: "Brasileiros", price: "R$ 20.00", range: "0-1H" }
+        ],
+        curtidas: [
+            { name: "Mundiais", price: "R$ 20.00", range: "0-15 Min" },
+            { name: "Brasileiras", price: "R$ 20.00", range: "0-1H" }
+        ],
+        visualizacoes: [
+            { name: "Rápido", price: "R$ 20.00", range: "0-15 Min" },
+            { name: "Normal", price: "R$ 20.00", range: "1-2H" }
+        ],
+        comentarios: [
+            { name: "Personalizados", price: "R$ 30.00", range: "0-1H" }
+        ],
+        compartilhamentos: [
+            { name: "Mundiais", price: "R$ 30.00", range: "0-15 Min" },
+            { name: "Brasileiros", price: "R$ 30.00", range: "0-1H" }
+        ],
+        inscritos: [
+            { name: "Mundiais", price: "R$ 30.00", range: "0-1H" },
+            { name: "Brasileiros", price: "R$ 30.00", range: "1-2H" }
+        ],
+        reacoes: [
+            { name: "Mundiais", price: "R$ 30.00", range: "0-15 Min" },
+            { name: "Brasileiras", price: "R$ 30.00", range: "0-1H" }
+        ],
+        downloads: [
+            { name: "Mundiais", price: "R$ 30.00", range: "0-1H" }
+        ],
+        mensagens: [
+            { name: "Mundiais", price: "R$ 30.00", range: "0-1H" }
         ]
     };
 
@@ -220,6 +257,50 @@
             { name: "Pacote Avançado", price: "R$ 60.00" }
         ],
         "Brasileiros": [
+            { name: "Pacote Básico", price: "R$ 40.00" },
+            { name: "Pacote Avançado", price: "R$ 60.00" }
+        ],
+        "Rápido": [
+            { name: "Pacote Básico", price: "R$ 40.00" },
+            { name: "Pacote Avançado", price: "R$ 60.00" }
+        ],
+        "Normal": [
+            { name: "Pacote Básico", price: "R$ 40.00" },
+            { name: "Pacote Avançado", price: "R$ 60.00" }
+        ],
+        "Personalizados": [
+            { name: "Pacote Básico", price: "R$ 40.00" },
+            { name: "Pacote Avançado", price: "R$ 60.00" }
+        ],
+        "Compartilhamentos Mundiais": [
+            { name: "Pacote Básico", price: "R$ 40.00" },
+            { name: "Pacote Avançado", price: "R$ 60.00" }
+        ],
+        "Compartilhamentos Brasileiros": [
+            { name: "Pacote Básico", price: "R$ 40.00" },
+            { name: "Pacote Avançado", price: "R$ 60.00" }
+        ],
+        "Inscritos Mundiais": [
+            { name: "Pacote Básico", price: "R$ 40.00" },
+            { name: "Pacote Avançado", price: "R$ 60.00" }
+        ],
+        "Inscritos Brasileiros": [
+            { name: "Pacote Básico", price: "R$ 40.00" },
+            { name: "Pacote Avançado", price: "R$ 60.00" }
+        ],
+        "Reações Mundiais": [
+            { name: "Pacote Básico", price: "R$ 40.00" },
+            { name: "Pacote Avançado", price: "R$ 60.00" }
+        ],
+        "Reações Brasileiras": [
+            { name: "Pacote Básico", price: "R$ 40.00" },
+            { name: "Pacote Avançado", price: "R$ 60.00" }
+        ],
+        "Downloads Mundiais": [
+            { name: "Pacote Básico", price: "R$ 40.00" },
+            { name: "Pacote Avançado", price: "R$ 60.00" }
+        ],
+        "Mensagens Mundiais": [
             { name: "Pacote Básico", price: "R$ 40.00" },
             { name: "Pacote Avançado", price: "R$ 60.00" }
         ]
