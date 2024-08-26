@@ -1,282 +1,140 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel de Controle - KN5 Seguidores</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        body {
-            background-color: #121212;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .navbar {
-            background-color: #1e1e1e;
-        }
-        .navbar-brand {
-            color: #d4af37;
-            font-size: 1.5rem;
-        }
-        .navbar-nav .nav-link {
-            color: #d4af37;
-        }
-        .navbar-nav .nav-link:hover {
-            color: #bfa636;
-        }
-        .container {
-            background-color: #1e1e1e;
-            border-radius: 15px;
-            padding: 30px;
-            margin: 50px auto;
-            max-width: 800px;
-        }
-        .header {
-            border-bottom: 2px solid #d4af37;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-        }
-        .header h1 {
-            color: #d4af37;
-            font-size: 2.5rem;
-            margin: 0;
-            text-align: center;
-        }
-        .form-control {
-            border-radius: 5px;
-            border: 1px solid #d4af37;
-            background-color: #2e2e2e;
-            color: #ffffff;
-        }
-        .form-control:focus {
-            border-color: #d4af37;
-            box-shadow: none;
-        }
-        .btn-primary {
-            background-color: #d4af37;
-            border-color: #d4af37;
-            font-size: 1.1rem;
-        }
-        .btn-primary:hover {
-            background-color: #bfa636;
-            border-color: #bfa636;
-        }
-        .card {
-            background-color: #2e2e2e;
-            border: 1px solid #d4af37;
-            border-radius: 10px;
-        }
-        .card-header {
-            background-color: #1e1e1e;
-            color: #d4af37;
-            font-weight: bold;
-            font-size: 1.25rem;
-        }
-        .card-body {
-            padding: 20px;
-        }
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        .form-group label {
-            color: #d4af37;
-            font-weight: bold;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            color: #d4af37;
-            font-size: 0.875rem;
-        }
-        .footer a {
-            color: #d4af37;
-            text-decoration: none;
-        }
-        .footer a:hover {
-            text-decoration: underline;
-        }
-        .btn {
-            border-radius: 5px;
-        }
-        .service-list {
-            display: none;
-            margin-top: 20px;
-        }
-        .service-list.show {
-            display: block;
-        }
-        .service-list .service-column {
-            width: 100%;
-            margin-bottom: 20px;
-        }
-        @media (min-width: 576px) {
-            .service-list .service-column {
-                width: calc(50% - 10px);
-                float: left;
-                margin-right: 10px;
-            }
-        }
-        @media (min-width: 768px) {
-            .service-list .service-column {
-                width: calc(33.333% - 10px);
-                margin-right: 10px;
-            }
-        }
-        @media (min-width: 992px) {
-            .service-list .service-column {
-                width: calc(25% - 10px);
-                margin-right: 10px;
-            }
-        }
-        .service-item {
-            background-color: #2e2e2e;
-            border: 1px solid #d4af37;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 10px;
-        }
-        .feedback {
-            color: #d4af37;
-            margin-top: 10px;
-            font-size: 0.875rem;
-        }
-        .form-background {
-            background-color: #1e1e1e; /* Fundo do formulário para combinar com o site */
-            border-radius: 15px;
-            padding: 20px;
-        }
-    </style>
-</head>
-<body>
-
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="#">KN5 Seguidores</a>
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Serviços</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Suporte</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Contato</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-<div class="container">
-    <div class="header">
-        <h1>Painel de Controle - KN5 Seguidores</h1>
-    </div>
-    <div class="card form-background">
-        <div class="card-header">
-            Formulário de Pedido
-        </div>
-        <div class="card-body">
-            <form id="orderForm">
-                <div class="form-group">
-                    <label for="client_name">Nome:</label>
-                    <input type="text" id="client_name" name="client_name" class="form-control" placeholder="Digite seu nome" required>
-                </div>
-                <div class="form-group">
-                    <label for="category">Categoria:</label>
-                    <select id="category" name="category" class="form-control" required>
-                        <option value="" disabled selected>Selecione uma categoria</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="service">Serviço:</label>
-                    <select id="service" name="service" class="form-control" required>
-                        <option value="" disabled selected>Selecione um serviço</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="package">Escolha seu pacote:</label>
-                    <select id="package" name="package" class="form-control" required>
-                        <option value="" disabled selected>Selecione um pacote</option>
-                    </select>
-                </div>
-                <div id="feedback" class="feedback"></div>
-                <button type="submit" class="btn btn-primary">Enviar Pedido</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="footer">
-        &copy; 2024 KN5 Seguidores - <a href="https://api.whatsapp.com/send?phone=+5519995271979&text=Ol%C3%A1,%20preciso%20de%20ajuda" target="_blank">Suporte</a>
-    </div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.min.js"></script>
-<script>
-    $(document).ready(function() {
-        // Função para carregar o JSON e atualizar as opções
-        $.ajax({
-            url: 'data.json',
-            dataType: 'json',
-            success: function(data) {
-                const categorySelect = $('#category');
-                const serviceSelect = $('#service');
-                const packageSelect = $('#package');
-                const feedback = $('#feedback');
-
-                // Carregar categorias
-                for (const category in data) {
-                    categorySelect.append(`<option value="${category}">${category}</option>`);
-                }
-
-                categorySelect.on('change', function() {
-                    const category = $(this).val();
-                    serviceSelect.empty().append('<option value="" disabled selected>Selecione um serviço</option>');
-                    packageSelect.empty().append('<option value="" disabled selected>Selecione um pacote</option>');
-                    feedback.empty();
-
-                    if (data[category]) {
-                        for (const [serviceName] of Object.entries(data[category])) {
-                            serviceSelect.append(`<option value="${serviceName}">${serviceName}</option>`);
-                        }
-                    }
-                });
-
-                serviceSelect.on('change', function() {
-                    const category = $('#category').val();
-                    const service = $(this).val();
-                    packageSelect.empty().append('<option value="" disabled selected>Selecione um pacote</option>');
-                    feedback.empty();
-
-                    if (category && service && data[category] && data[category][service]) {
-                        data[category][service].forEach(pkg => {
-                            packageSelect.append(`<option value="${pkg.range}">${pkg.range} - ${pkg.price}</option>`);
-                        });
-                    }
-                });
-
-                $('#orderForm').on('submit', function(event) {
-                    event.preventDefault();
-                    const name = $('#client_name').val();
-                    const category = $('#category').val();
-                    const service = $('#service').val();
-                    const packageRange = $('#package').val();
-
-                    if (name && category && service && packageRange) {
-                        feedback.text(`Obrigado, ${name}! Seu pedido para ${service} na categoria ${category} com pacote ${packageRange} foi recebido.`);
-                    } else {
-                        feedback.text('Por favor, preencha todos os campos.');
-                    }
-                });
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.error('Erro ao carregar o JSON: ', textStatus, errorThrown);
-                $('#feedback').text('Não foi possível carregar os dados. Verifique o console para mais informações.');
-            }
-        });
-    });
-</script>
-</body>
-</html>
+{
+    "Seguidores": {
+        "Mundiais": [
+            {"range": "500 seguidores mundiais", "price": "R$5,00"},
+            {"range": "1000 seguidores mundiais", "price": "R$10,00"},
+            {"range": "1500 seguidores mundiais", "price": "R$15,00"},
+            {"range": "2000 seguidores mundiais", "price": "R$25,00"},
+            {"range": "2500 seguidores mundiais", "price": "R$30,00"},
+            {"range": "3000 seguidores mundiais", "price": "R$35,00"},
+            {"range": "3500 seguidores mundiais", "price": "R$40,00"},
+            {"range": "4000 seguidores mundiais", "price": "R$45,00"},
+            {"range": "4500 seguidores mundiais", "price": "R$50,00"},
+            {"range": "5000 seguidores mundiais", "price": "R$55,00"},
+            {"range": "5500 seguidores mundiais", "price": "R$60,00"},
+            {"range": "6000 seguidores mundiais", "price": "R$65,00"},
+            {"range": "6500 seguidores mundiais", "price": "R$70,00"},
+            {"range": "7000 seguidores mundiais", "price": "R$75,00"},
+            {"range": "7500 seguidores mundiais", "price": "R$80,00"},
+            {"range": "8000 seguidores mundiais", "price": "R$85,00"},
+            {"range": "8500 seguidores mundiais", "price": "R$90,00"},
+            {"range": "9000 seguidores mundiais", "price": "R$95,00"},
+            {"range": "9500 seguidores mundiais", "price": "R$100,00"},
+            {"range": "10000 seguidores mundiais", "price": "R$105,00"}
+        ],
+        "Brasileiros": [
+            {"range": "500 seguidores brasileiros", "price": "R$12,00"},
+            {"range": "1000 seguidores brasileiros", "price": "R$24,00"},
+            {"range": "1500 seguidores brasileiros", "price": "R$36,00"},
+            {"range": "2000 seguidores brasileiros", "price": "R$48,00"},
+            {"range": "2500 seguidores brasileiros", "price": "R$60,00"},
+            {"range": "3000 seguidores brasileiros", "price": "R$72,00"},
+            {"range": "3500 seguidores brasileiros", "price": "R$84,00"},
+            {"range": "4000 seguidores brasileiros", "price": "R$96,00"},
+            {"range": "4500 seguidores brasileiros", "price": "R$108,00"},
+            {"range": "5000 seguidores brasileiros", "price": "R$120,00"},
+            {"range": "5500 seguidores brasileiros", "price": "R$132,00"},
+            {"range": "6000 seguidores brasileiros", "price": "R$144,00"},
+            {"range": "6500 seguidores brasileiros", "price": "R$156,00"},
+            {"range": "7000 seguidores brasileiros", "price": "R$168,00"},
+            {"range": "7500 seguidores brasileiros", "price": "R$180,00"},
+            {"range": "8000 seguidores brasileiros", "price": "R$192,00"},
+            {"range": "8500 seguidores brasileiros", "price": "R$204,00"},
+            {"range": "9000 seguidores brasileiros", "price": "R$216,00"},
+            {"range": "9500 seguidores brasileiros", "price": "R$228,00"},
+            {"range": "10000 seguidores brasileiros", "price": "R$240,00"}
+        ]
+    },
+    "Curtidas": {
+        "Mundiais": [
+            {"range": "500 curtidas mundiais", "price": "R$1,50"},
+            {"range": "1000 curtidas mundiais", "price": "R$3,00"},
+            {"range": "1500 curtidas mundiais", "price": "R$4,50"},
+            {"range": "2000 curtidas mundiais", "price": "R$6,00"},
+            {"range": "2500 curtidas mundiais", "price": "R$7,50"},
+            {"range": "3000 curtidas mundiais", "price": "R$9,00"},
+            {"range": "3500 curtidas mundiais", "price": "R$10,50"},
+            {"range": "4000 curtidas mundiais", "price": "R$12,00"},
+            {"range": "4500 curtidas mundiais", "price": "R$13,50"},
+            {"range": "5000 curtidas mundiais", "price": "R$15,00"},
+            {"range": "5500 curtidas mundiais", "price": "R$16,50"},
+            {"range": "6000 curtidas mundiais", "price": "R$18,00"},
+            {"range": "6500 curtidas mundiais", "price": "R$19,50"},
+            {"range": "7000 curtidas mundiais", "price": "R$21,00"},
+            {"range": "7500 curtidas mundiais", "price": "R$22,50"},
+            {"range": "8000 curtidas mundiais", "price": "R$24,00"},
+            {"range": "8500 curtidas mundiais", "price": "R$25,50"},
+            {"range": "9000 curtidas mundiais", "price": "R$27,00"},
+            {"range": "9500 curtidas mundiais", "price": "R$28,50"},
+            {"range": "10000 curtidas mundiais", "price": "R$30,00"}
+        ],
+        "Brasileiros": [
+            {"range": "500 curtidas brasileiras", "price": "R$3,50"},
+            {"range": "1000 curtidas brasileiras", "price": "R$7,00"},
+            {"range": "1500 curtidas brasileiras", "price": "R$10,50"},
+            {"range": "2000 curtidas brasileiras", "price": "R$14,00"},
+            {"range": "2500 curtidas brasileiras", "price": "R$17,50"},
+            {"range": "3000 curtidas brasileiras", "price": "R$21,00"},
+            {"range": "3500 curtidas brasileiras", "price": "R$24,50"},
+            {"range": "4000 curtidas brasileiras", "price": "R$28,00"},
+            {"range": "4500 curtidas brasileiras", "price": "R$31,50"},
+            {"range": "5000 curtidas brasileiras", "price": "R$35,00"},
+            {"range": "5500 curtidas brasileiras", "price": "R$38,50"},
+            {"range": "6000 curtidas brasileiras", "price": "R$42,00"},
+            {"range": "6500 curtidas brasileiras", "price": "R$45,50"},
+            {"range": "7000 curtidas brasileiras", "price": "R$49,00"},
+            {"range": "7500 curtidas brasileiras", "price": "R$52,50"},
+            {"range": "8000 curtidas brasileiras", "price": "R$56,00"},
+            {"range": "8500 curtidas brasileiras", "price": "R$59,50"},
+            {"range": "9000 curtidas brasileiras", "price": "R$63,00"},
+            {"range": "9500 curtidas brasileiras", "price": "R$66,50"},
+            {"range": "10000 curtidas brasileiras", "price": "R$70,00"}
+        ]
+    },
+    "Visualizações": {
+        "Mundiais": [
+            {"range": "500 visualizações mundiais", "price": "R$0,50"},
+            {"range": "1000 visualizações mundiais", "price": "R$1,00"},
+            {"range": "1500 visualizações mundiais", "price": "R$1,50"},
+            {"range": "2000 visualizações mundiais", "price": "R$2,00"},
+            {"range": "2500 visualizações mundiais", "price": "R$2,50"},
+            {"range": "3000 visualizações mundiais", "price": "R$3,00"},
+            {"range": "3500 visualizações mundiais", "price": "R$3,50"},
+            {"range": "4000 visualizações mundiais", "price": "R$4,00"},
+            {"range": "4500 visualizações mundiais", "price": "R$4,50"},
+            {"range": "5000 visualizações mundiais", "price": "R$5,00"},
+            {"range": "5500 visualizações mundiais", "price": "R$5,50"},
+            {"range": "6000 visualizações mundiais", "price": "R$6,00"},
+            {"range": "6500 visualizações mundiais", "price": "R$6,50"},
+            {"range": "7000 visualizações mundiais", "price": "R$7,00"},
+            {"range": "7500 visualizações mundiais", "price": "R$7,50"},
+            {"range": "8000 visualizações mundiais", "price": "R$8,00"},
+            {"range": "8500 visualizações mundiais", "price": "R$8,50"},
+            {"range": "9000 visualizações mundiais", "price": "R$9,00"},
+            {"range": "9500 visualizações mundiais", "price": "R$9,50"},
+            {"range": "10000 visualizações mundiais", "price": "R$10,00"}
+        ],
+        "Brasileiros": [
+            {"range": "500 visualizações brasileiras", "price": "R$1,00"},
+            {"range": "1000 visualizações brasileiras", "price": "R$2,00"},
+            {"range": "1500 visualizações brasileiras", "price": "R$3,00"},
+            {"range": "2000 visualizações brasileiras", "price": "R$4,00"},
+            {"range": "2500 visualizações brasileiras", "price": "R$5,00"},
+            {"range": "3000 visualizações brasileiras", "price": "R$6,00"},
+            {"range": "3500 visualizações brasileiras", "price": "R$7,00"},
+            {"range": "4000 visualizações brasileiras", "price": "R$8,00"},
+            {"range": "4500 visualizações brasileiras", "price": "R$9,00"},
+            {"range": "5000 visualizações brasileiras", "price": "R$10,00"},
+            {"range": "5500 visualizações brasileiras", "price": "R$11,00"},
+            {"range": "6000 visualizações brasileiras", "price": "R$12,00"},
+            {"range": "6500 visualizações brasileiras", "price": "R$13,00"},
+            {"range": "7000 visualizações brasileiras", "price": "R$14,00"},
+            {"range": "7500 visualizações brasileiras", "price": "R$15,00"},
+            {"range": "8000 visualizações brasileiras", "price": "R$16,00"},
+            {"range": "8500 visualizações brasileiras", "price": "R$17,00"},
+            {"range": "9000 visualizações brasileiras", "price": "R$18,00"},
+            {"range": "9500 visualizações brasileiras", "price": "R$19,00"},
+            {"range": "10000 visualizações brasileiras", "price": "R$20,00"}
+        ]
+    }
+}
