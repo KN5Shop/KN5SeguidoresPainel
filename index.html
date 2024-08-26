@@ -5,51 +5,148 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Controle - KN5 Seguidores</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             background-color: #121212;
             color: #ffffff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
         }
         .navbar {
             background-color: #1e1e1e;
         }
         .navbar-brand {
             color: #d4af37;
+            font-size: 1.5rem;
         }
         .navbar-nav .nav-link {
             color: #d4af37;
         }
+        .navbar-nav .nav-link:hover {
+            color: #bfa636;
+        }
         .container {
             background-color: #1e1e1e;
-            padding: 30px;
             border-radius: 15px;
-            margin-top: 30px;
+            padding: 30px;
+            margin: 50px auto;
+            max-width: 800px;
+        }
+        .header {
+            border-bottom: 2px solid #d4af37;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
         }
         .header h1 {
             color: #d4af37;
+            font-size: 2.5rem;
+            margin: 0;
             text-align: center;
         }
         .form-control {
-            background-color: #2e2e2e;
+            border-radius: 5px;
             border: 1px solid #d4af37;
+            background-color: #2e2e2e;
             color: #ffffff;
         }
         .form-control:focus {
             border-color: #d4af37;
+            box-shadow: none;
         }
         .btn-primary {
             background-color: #d4af37;
             border-color: #d4af37;
+            font-size: 1.1rem;
+        }
+        .btn-primary:hover {
+            background-color: #bfa636;
+            border-color: #bfa636;
+        }
+        .card {
+            background-color: #2e2e2e;
+            border: 1px solid #d4af37;
+            border-radius: 10px;
         }
         .card-header {
             background-color: #1e1e1e;
             color: #d4af37;
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            color: #d4af37;
+            font-weight: bold;
         }
         .footer {
             text-align: center;
+            margin-top: 30px;
             color: #d4af37;
+            font-size: 0.875rem;
+        }
+        .footer a {
+            color: #d4af37;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .btn {
+            border-radius: 5px;
+        }
+        .service-list {
+            display: none;
             margin-top: 20px;
+        }
+        .service-list.show {
+            display: block;
+        }
+        .service-list .service-column {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        @media (min-width: 576px) {
+            .service-list .service-column {
+                width: calc(50% - 10px);
+                float: left;
+                margin-right: 10px;
+            }
+        }
+        @media (min-width: 768px) {
+            .service-list .service-column {
+                width: calc(33.333% - 10px);
+                margin-right: 10px;
+            }
+        }
+        @media (min-width: 992px) {
+            .service-list .service-column {
+                width: calc(25% - 10px);
+                margin-right: 10px;
+            }
+        }
+        .service-item {
+            background-color: #2e2e2e;
+            border: 1px solid #d4af37;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        .feedback {
+            color: #d4af37;
+            margin-top: 10px;
+            font-size: 0.875rem;
+        }
+        .form-background {
+            background-color: #1e1e1e; /* Fundo do formulário para combinar com o site */
+            border-radius: 15px;
+            padding: 20px;
         }
     </style>
 </head>
@@ -57,14 +154,26 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark">
     <a class="navbar-brand" href="#">KN5 Seguidores</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Serviços</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Suporte</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contato</a>
+            </li>
+        </ul>
+    </div>
 </nav>
 
 <div class="container">
     <div class="header">
         <h1>Painel de Controle - KN5 Seguidores</h1>
     </div>
-
-    <div class="card">
+    <div class="card form-background">
         <div class="card-header">
             Formulário de Pedido
         </div>
@@ -74,7 +183,6 @@
                     <label for="client_name">Nome:</label>
                     <input type="text" id="client_name" name="client_name" class="form-control" required>
                 </div>
-
                 <div class="form-group">
                     <label for="category">Categoria:</label>
                     <select id="category" name="category" class="form-control" required>
@@ -84,129 +192,111 @@
                         <option value="visualizacoes">Visualizações</option>
                     </select>
                 </div>
-
                 <div class="form-group">
                     <label for="service">Serviço:</label>
                     <select id="service" name="service" class="form-control" required>
                         <option value="" disabled selected>Selecione um serviço</option>
                     </select>
                 </div>
-
                 <div class="form-group">
                     <label for="package">Escolha seu pacote:</label>
                     <select id="package" name="package" class="form-control" required>
                         <option value="" disabled selected>Selecione um pacote</option>
                     </select>
                 </div>
-
+                <div id="feedback" class="feedback"></div>
                 <button type="submit" class="btn btn-primary">Enviar Pedido</button>
             </form>
         </div>
     </div>
 
     <div class="footer">
-        &copy; 2024 KN5 Seguidores - <a href="https://api.whatsapp.com/send?phone=+5519995271979">Contato via WhatsApp</a>
+        &copy; 2024 KN5 Seguidores - <a href="https://api.whatsapp.com/send?phone=+5519995271979&text=Ol%C3%A1+vim+pelo+seu+site+KN5+Shop%2C+tudo+bem%3F+%F0%9F%98%83">Contato via WhatsApp</a>
     </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.min.js"></script>
 <script>
     const services = {
-        seguidores: [
-            { name: "Mundiais", type: "mundiais" },
-            { name: "Brasileiros", type: "brasileiros" }
-        ],
-        curtidas: [
-            { name: "Mundiais", type: "mundiais" },
-            { name: "Brasileiros", type: "brasileiros" }
-        ],
-        visualizacoes: [
-            { name: "Mundiais", type: "mundiais" },
-            { name: "Brasileiros", type: "brasileiros" }
-        ]
-    };
-
-    const packages = {
-        mundiais: {
-            seguidores: [
-                { range: "500", price: "R$5,00" },
-                { range: "1000", price: "R$10,00" },
-                { range: "1500", price: "R$15,00" },
-                { range: "2000", price: "R$25,00" },
-                { range: "2500", price: "R$30,00" },
-                { range: "3000", price: "R$35,00" },
-                { range: "3500", price: "R$40,00" },
-                { range: "4000", price: "R$45,00" },
-                { range: "4500", price: "R$50,00" },
-                { range: "5000", price: "R$55,00" }
-            ],
-            curtidas: [
-                { range: "500", price: "R$1,50" },
-                { range: "1000", price: "R$3,00" }
-                // Adicionar pacotes restantes aqui
-            ],
-            visualizacoes: [
-                { range: "500", price: "R$0,50" },
-                { range: "1000", price: "R$1,00" }
-                // Adicionar pacotes restantes aqui
+        seguidores: {
+            mundiais: [
+                { range: "500", price: "R$ 5,00" },
+                { range: "1000", price: "R$ 10,00" },
+                { range: "1500", price: "R$ 15,00" },
+                { range: "2000", price: "R$ 25,00" },
+                { range: "2500", price: "R$ 30,00" },
+                { range: "3000", price: "R$ 35,00" },
+                { range: "3500", price: "R$ 40,00" },
+                { range: "4000", price: "R$ 45,00" },
+                { range: "4500", price: "R$ 50,00" },
+                { range: "5000", price: "R$ 55,00" },
+                { range: "5500", price: "R$ 60,00" },
+                { range: "6000", price: "R$ 65,00" },
+                { range: "6500", price: "R$ 70,00" }
             ]
         },
-        brasileiros: {
-            seguidores: [
-                { range: "500", price: "R$12,00" },
-                { range: "1000", price: "R$24,00" }
-                // Adicionar pacotes restantes aqui
-            ],
-            curtidas: [
-                { range: "500", price: "R$3,50" },
-                { range: "1000", price: "R$7,00" }
-                // Adicionar pacotes restantes aqui
-            ],
-            visualizacoes: [
-                { range: "500", price: "R$1,00" },
-                { range: "1000", price: "R$2,00" }
-                // Adicionar pacotes restantes aqui
+        curtidas: {
+            mundiais: [
+                { range: "100", price: "R$ 10,00" },
+                { range: "200", price: "R$ 20,00" },
+                { range: "300", price: "R$ 30,00" },
+                { range: "400", price: "R$ 40,00" },
+                { range: "500", price: "R$ 50,00" }
+            ]
+        },
+        visualizacoes: {
+            mundiais: [
+                { range: "1000", price: "R$ 15,00" },
+                { range: "2000", price: "R$ 30,00" },
+                { range: "3000", price: "R$ 45,00" },
+                { range: "4000", price: "R$ 60,00" },
+                { range: "5000", price: "R$ 75,00" }
             ]
         }
     };
 
-    document.getElementById('category').addEventListener('change', function() {
-        const category = this.value;
-        const serviceSelect = document.getElementById('service');
-        serviceSelect.innerHTML = '<option value="" disabled selected>Selecione um serviço</option>';
-        document.getElementById('package').innerHTML = '<option value="" disabled selected>Selecione um pacote</option>';
+    const serviceSelect = $('#service');
+    const packageSelect = $('#package');
+    const feedback = $('#feedback');
 
-        if (category) {
-            services[category].forEach(service => {
-                serviceSelect.innerHTML += `<option value="${service.type}">${service.name}</option>`;
+    $('#category').on('change', function() {
+        const category = $(this).val();
+        serviceSelect.empty().append('<option value="" disabled selected>Selecione um serviço</option>');
+        packageSelect.empty().append('<option value="" disabled selected>Selecione um pacote</option>');
+        feedback.empty();
+
+        if (category && services[category]) {
+            for (const [serviceName, serviceOptions] of Object.entries(services[category])) {
+                serviceSelect.append(`<option value="${serviceName}">${serviceName}</option>`);
+            }
+        }
+    });
+
+    serviceSelect.on('change', function() {
+        const category = $('#category').val();
+        const service = $(this).val();
+        packageSelect.empty().append('<option value="" disabled selected>Selecione um pacote</option>');
+        feedback.empty();
+
+        if (category && service && services[category] && services[category][service]) {
+            services[category][service].forEach(pkg => {
+                packageSelect.append(`<option value="${pkg.range}">${pkg.range} - ${pkg.price}</option>`);
             });
         }
     });
 
-    document.getElementById('service').addEventListener('change', function() {
-        const category = document.getElementById('category').value;
-        const serviceType = this.value;
-        const packageSelect = document.getElementById('package');
-        packageSelect.innerHTML = '<option value="" disabled selected>Selecione um pacote</option>';
-
-        if (category && serviceType) {
-            packages[serviceType][category].forEach(pkg => {
-                packageSelect.innerHTML += `<option value="${pkg.range}">${pkg.range} ${category} - ${pkg.price}</option>`;
-            });
-        }
-    });
-
-    document.getElementById('orderForm').addEventListener('submit', function(event) {
+    $('#orderForm').on('submit', function(event) {
         event.preventDefault();
-        const clientName = document.getElementById('client_name').value;
-        const category = document.getElementById('category').value;
-        const service = document.getElementById('service').value;
-        const packageSelected = document.getElementById('package').value;
+        const name = $('#client_name').val();
+        const category = $('#category').val();
+        const service = $('#service').val();
+        const packageRange = $('#package').val();
 
-        if (clientName && category && service && packageSelected) {
-            alert(`Pedido enviado com sucesso!\nCliente: ${clientName}\nCategoria: ${category}\nServiço: ${service}\nPacote: ${packageSelected}`);
-            this.reset();
+        if (name && category && service && packageRange) {
+            feedback.text(`Obrigado, ${name}! Seu pedido para ${service} na categoria ${category} com pacote ${packageRange} foi recebido.`);
         } else {
-            alert('Por favor, preencha todos os campos.');
+            feedback.text('Por favor, preencha todos os campos.');
         }
     });
 </script>
