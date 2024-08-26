@@ -192,7 +192,14 @@
                     <label for="service">Serviço:</label>
                     <select id="service" name="service" class="form-control" required>
                         <option value="" disabled selected>Selecione um serviço</option>
-                        <!-- Services will be populated based on category selection -->
+                        <!-- Serviços serão preenchidos com base na seleção da categoria -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="package">Escolha seu pacote:</label>
+                    <select id="package" name="package" class="form-control" required>
+                        <option value="" disabled selected>Selecione um pacote</option>
+                        <!-- Pacotes serão preenchidos com base na seleção do serviço -->
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Enviar Pedido</button>
@@ -215,32 +222,44 @@
 <script>
     const services = {
         instagram: [
-            { name: "Visualizações em vídeo | Reel / IGTV | Rápido", price: "9999", range: "0-10 min" },
-            { name: "Curtidas Mundiais", price: "9999", range: "0-5 min" },
-            { name: "Curtidas Orgânicas BR", price: "9999", range: "15-30 min" },
-            { name: "Curtidas Brasileiras", price: "9999", range: "0-15 min" },
-            { name: "Comentários Personalizados", price: "9999", range: "0-1H" },
-            { name: "Seguidores Orgânicos", price: "9999", range: "6-12H" }
+            { name: "Visualizações em vídeo | Reel / IGTV | Rápido", price: "R$ 9999", range: "0-10 min" },
+            { name: "Curtidas Mundiais", price: "R$ 9999", range: "0-5 min" },
+            { name: "Curtidas Orgânicas BR", price: "R$ 9999", range: "15-30 min" },
+            { name: "Curtidas Brasileiras", price: "R$ 9999", range: "0-15 min" },
+            { name: "Comentários Personalizados", price: "R$ 9999", range: "0-1H" },
+            { name: "Seguidores Orgânicos", price: "R$ 9999", range: "6-12H" }
         ],
         tiktok: [
-            { name: "Seguidores Mundiais", price: "9999", range: "0-15 Min" },
-            { name: "Seguidores Brasileiros", price: "9999", range: "0-1H" }
+            { name: "Seguidores Mundiais", price: "R$ 9999", range: "0-15 Min" },
+            { name: "Seguidores Brasileiros", price: "R$ 9999", range: "0-1H" }
         ],
         kwai: [
-            { name: "Curtidas", price: "9999", range: "0-30 min" },
-            { name: "Seguidores", price: "9999", range: "1-2H" }
+            { name: "Curtidas", price: "R$ 9999", range: "0-30 min" },
+            { name: "Seguidores", price: "R$ 9999", range: "1-2H" }
         ],
         youtube: [
-            { name: "Likes", price: "9999", range: "0-1H" },
-            { name: "Inscritos Mundiais", price: "9999", range: "1-2H" }
+            { name: "Likes", price: "R$ 9999", range: "0-1H" },
+            { name: "Inscritos Mundiais", price: "R$ 9999", range: "1-2H" }
         ]
+    };
+
+    const packages = {
+        "Visualizações em vídeo | Reel / IGTV | Rápido": [
+            { name: "Pacote Básico", price: "R$ 9999" },
+            { name: "Pacote Avançado", price: "R$ 14999" }
+        ],
+        "Curtidas Mundiais": [
+            { name: "Pacote Básico", price: "R$ 9999" },
+            { name: "Pacote Avançado", price: "R$ 14999" }
+        ],
+        // Adicione pacotes para outros serviços conforme necessário
     };
 
     document.getElementById('category').onchange = function() {
         const category = this.value;
         const serviceSelect = document.getElementById('service');
 
-        // Clear existing options
+        // Limpar opções existentes
         serviceSelect.innerHTML = '<option value="" disabled selected>Selecione um serviço</option>';
 
         if (services[category]) {
@@ -253,13 +272,31 @@
         }
     };
 
+    document.getElementById('service').onchange = function() {
+        const service = this.value;
+        const packageSelect = document.getElementById('package');
+
+        // Limpar opções existentes
+        packageSelect.innerHTML = '<option value="" disabled selected>Selecione um pacote</option>';
+
+        if (packages[service]) {
+            packages[service].forEach(pkg => {
+                const option = document.createElement('option');
+                option.value = pkg.name;
+                option.textContent = pkg.name;
+                packageSelect.appendChild(option);
+            });
+        }
+    };
+
     document.getElementById('orderForm').onsubmit = function(e) {
         e.preventDefault();
 
         const clientName = encodeURIComponent(document.getElementById('client_name').value);
         const category = encodeURIComponent(document.getElementById('category').value);
         const service = encodeURIComponent(document.getElementById('service').value);
-        const message = `Ol%C3%A1+vim+pelo+seu+site+KN5+Seguidores%2C+o+cliente+${clientName}+solicitou+o+seguinte+servi%C3%A7o%3A+${service}%2C+Categoria%3A+${category}`;
+        const packageChoice = encodeURIComponent(document.getElementById('package').value);
+        const message = `Ol%C3%A1+vim+pelo+seu+site+KN5+Seguidores%2C+o+cliente+${clientName}+solicitou+o+seguinte+servi%C3%A7o%3A+${service}%2C+Categoria%3A+${category}%2C+Pacote%3A+${packageChoice}`;
 
         window.open(`https://api.whatsapp.com/send?phone=+5519995271979&text=${message}`);
     };
