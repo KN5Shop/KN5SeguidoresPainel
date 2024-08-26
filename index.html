@@ -101,6 +101,43 @@
         .btn {
             border-radius: 5px;
         }
+        .service-list {
+            display: none;
+            margin-top: 20px;
+        }
+        .service-list.show {
+            display: block;
+        }
+        .service-list .service-column {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        @media (min-width: 576px) {
+            .service-list .service-column {
+                width: calc(50% - 10px);
+                float: left;
+                margin-right: 10px;
+            }
+        }
+        @media (min-width: 768px) {
+            .service-list .service-column {
+                width: calc(33.333% - 10px);
+                margin-right: 10px;
+            }
+        }
+        @media (min-width: 992px) {
+            .service-list .service-column {
+                width: calc(25% - 10px);
+                margin-right: 10px;
+            }
+        }
+        .service-item {
+            background-color: #2e2e2e;
+            border: 1px solid #d4af37;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -137,50 +174,37 @@
                     <input type="text" id="client_name" name="client_name" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="service">Serviços:</label>
+                    <label for="category">Categoria:</label>
+                    <select id="category" name="category" class="form-control" required>
+                        <option value="" disabled selected>Selecione uma categoria</option>
+                        <option value="instagram">Instagram</option>
+                        <option value="tiktok">TikTok</option>
+                        <option value="kwai">Kwai</option>
+                        <option value="youtube">YouTube</option>
+                        <option value="twitter">Twitter</option>
+                        <option value="whatsapp">WhatsApp</option>
+                        <option value="spotify">Spotify</option>
+                        <option value="twitch">Twitch</option>
+                        <option value="google">Google</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="service">Serviço:</label>
                     <select id="service" name="service" class="form-control" required>
                         <option value="" disabled selected>Selecione um serviço</option>
-                        <!-- Instagram Services -->
-                        <option value="Curtidas Instagram - R$ 2.32 a R$ 8.58">Curtidas Instagram - R$ 2.32 a R$ 8.58</option>
-                        <option value="Seguidores Instagram - R$ 2.40 a R$ 23.38">Seguidores Instagram - R$ 2.40 a R$ 23.38</option>
-                        <option value="Comentários Instagram - R$ 2.40 a R$ 8.12">Comentários Instagram - R$ 2.40 a R$ 8.12</option>
-                        <option value="Compartilhamento Instagram - R$ 1.999.998">Compartilhamento Instagram - R$ 1.999.998</option>
-                        <option value="Visualizações Instagram - R$ 1.82 a R$ 9.18">Visualizações Instagram - R$ 1.82 a R$ 9.18</option>
-                        
-                        <!-- TikTok Services -->
-                        <option value="Curtidas TikTok - R$ 2.40 a R$ 8.58">Curtidas TikTok - R$ 2.40 a R$ 8.58</option>
-                        <option value="Seguidores TikTok - R$ 2.40 a R$ 23.38">Seguidores TikTok - R$ 2.40 a R$ 23.38</option>
-                        <option value="Visualizações TikTok - R$ 3.49 a R$ 12.96">Visualizações TikTok - R$ 3.49 a R$ 12.96</option>
-
-                        <!-- Twitter Services -->
-                        <option value="Comentários Twitter - R$ 778.79 a R$ 893.72">Comentários Twitter - R$ 778.79 a R$ 893.72</option>
-                        <option value="Seguidores Twitter - R$ 10.72 a R$ 11.76">Seguidores Twitter - R$ 10.72 a R$ 11.76</option>
-                        <option value="Retweets Twitter - R$ 12.62 a R$ 12.62">Retweets Twitter - R$ 12.62</option>
-                        
-                        <!-- Kwai Services -->
-                        <option value="Curtidas Kwai - R$ 4.80 a R$ 14.40">Curtidas Kwai - R$ 4.80 a R$ 14.40</option>
-                        <option value="Seguidores Kwai - R$ 2.40 a R$ 23.38">Seguidores Kwai - R$ 2.40 a R$ 23.38</option>
-                        <option value="Visualizações Kwai - R$ 2.40 a R$ 8.58">Visualizações Kwai - R$ 2.40 a R$ 8.58</option>
-                        
-                        <!-- WhatsApp Services -->
-                        <option value="Reações WhatsApp - R$ 35.78">Reações WhatsApp - R$ 35.78</option>
-                        
-                        <!-- Spotify Services -->
-                        <option value="Ouvintes Mensais Spotify - R$ 20.28 a R$ 20.28">Ouvintes Mensais Spotify - R$ 20.28 a R$ 20.28</option>
-                        <option value="Plays Spotify - R$ 6.98 a R$ 9.18">Plays Spotify - R$ 6.98 a R$ 9.18</option>
-                        
-                        <!-- Twitch Services -->
-                        <option value="Seguidores Twitch - R$ 2.40 a R$ 12.06">Seguidores Twitch - R$ 2.40 a R$ 12.06</option>
-                        <option value="Telespectadores Twitch - R$ 49.72 a R$ 447.56">Telespectadores Twitch - R$ 49.72 a R$ 447.56</option>
-                        
-                        <!-- Google Services -->
-                        <option value="Tráfego para Sites - R$ 1.18 a R$ 1.18">Tráfego para Sites - R$ 1.18 a R$ 1.18</option>
+                        <!-- Services will be populated based on category selection -->
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Enviar Pedido</button>
             </form>
         </div>
     </div>
+
+    <!-- Section to display selected services -->
+    <div id="servicesDisplay" class="service-list">
+        <div class="service-column" id="serviceColumn"></div>
+    </div>
+
     <div class="footer">
         &copy; 2024 KN5 Seguidores - <a href="https://api.whatsapp.com/send?phone=+5519995271979&text=Ol%C3%A1+vim+pelo+seu+site+KN5+Shop%2C+tudo+bem%3F+%F0%9F%98%83">Contato via WhatsApp</a>
     </div>
@@ -189,15 +213,57 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.min.js"></script>
 <script>
+    const services = {
+        instagram: [
+            { name: "Visualizações em vídeo | Reel / IGTV | Rápido", price: "9999", range: "0-10 min" },
+            { name: "Curtidas Mundiais", price: "9999", range: "0-5 min" },
+            { name: "Curtidas Orgânicas BR", price: "9999", range: "15-30 min" },
+            { name: "Curtidas Brasileiras", price: "9999", range: "0-15 min" },
+            { name: "Comentários Personalizados", price: "9999", range: "0-1H" },
+            { name: "Seguidores Orgânicos", price: "9999", range: "6-12H" }
+        ],
+        tiktok: [
+            { name: "Seguidores Mundiais", price: "9999", range: "0-15 Min" },
+            { name: "Seguidores Brasileiros", price: "9999", range: "0-1H" }
+        ],
+        kwai: [
+            { name: "Curtidas", price: "9999", range: "0-30 min" },
+            { name: "Seguidores", price: "9999", range: "1-2H" }
+        ],
+        youtube: [
+            { name: "Likes", price: "9999", range: "0-1H" },
+            { name: "Inscritos Mundiais", price: "9999", range: "1-2H" }
+        ]
+    };
+
+    document.getElementById('category').onchange = function() {
+        const category = this.value;
+        const serviceSelect = document.getElementById('service');
+
+        // Clear existing options
+        serviceSelect.innerHTML = '<option value="" disabled selected>Selecione um serviço</option>';
+
+        if (services[category]) {
+            services[category].forEach(service => {
+                const option = document.createElement('option');
+                option.value = service.name;
+                option.textContent = service.name;
+                serviceSelect.appendChild(option);
+            });
+        }
+    };
+
     document.getElementById('orderForm').onsubmit = function(e) {
         e.preventDefault();
 
-        var clientName = encodeURIComponent(document.getElementById('client_name').value);
-        var service = encodeURIComponent(document.getElementById('service').value);
-        var message = `Ol%C3%A1+vim+pelo+seu+site+KN5+Seguidores%2C+o+cliente+${clientName}+solicitou+o+seguinte+servi%C3%A7o%3A+${service}`;
+        const clientName = encodeURIComponent(document.getElementById('client_name').value);
+        const category = encodeURIComponent(document.getElementById('category').value);
+        const service = encodeURIComponent(document.getElementById('service').value);
+        const message = `Ol%C3%A1+vim+pelo+seu+site+KN5+Seguidores%2C+o+cliente+${clientName}+solicitou+o+seguinte+servi%C3%A7o%3A+${service}%2C+Categoria%3A+${category}`;
 
-        window.open(`https://api.whatsapp.com/send?phone=+5519995271979&text=${message}`, '_blank');
+        window.open(`https://api.whatsapp.com/send?phone=+5519995271979&text=${message}`);
     };
 </script>
+
 </body>
 </html>
