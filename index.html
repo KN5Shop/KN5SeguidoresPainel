@@ -14,6 +14,19 @@
             margin: 0;
             padding: 0;
         }
+        .navbar {
+            background-color: #1e1e1e;
+        }
+        .navbar-brand {
+            color: #d4af37;
+            font-size: 1.5rem;
+        }
+        .navbar-nav .nav-link {
+            color: #d4af37;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #bfa636;
+        }
         .container {
             background-color: #1e1e1e;
             border-radius: 15px;
@@ -92,6 +105,23 @@
 </head>
 <body>
 
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#">KN5 Seguidores</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Serviços</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Suporte</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contato</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
 <div class="container">
     <div class="header">
         <h1>Painel de Controle - KN5 Seguidores</h1>
@@ -101,7 +131,7 @@
             Formulário de Pedido
         </div>
         <div class="card-body">
-            <form action="https://api.whatsapp.com/send?phone=19995271979" method="get" target="_blank">
+            <form id="orderForm">
                 <div class="form-group">
                     <label for="client_name">Nome:</label>
                     <input type="text" id="client_name" name="client_name" class="form-control" required>
@@ -110,10 +140,10 @@
                     <label for="service">Serviços:</label>
                     <select id="service" name="service" class="form-control" required>
                         <option value="" disabled selected>Selecione um serviço</option>
-                        <option value="1">Serviço 1 - R$ 100</option>
-                        <option value="2">Serviço 2 - R$ 200</option>
-                        <option value="3">Serviço 3 - R$ 300</option>
-                        <option value="4">Serviço 4 - R$ 400</option>
+                        <option value="Serviço 1 - R$ 100">Serviço 1 - R$ 100</option>
+                        <option value="Serviço 2 - R$ 200">Serviço 2 - R$ 200</option>
+                        <option value="Serviço 3 - R$ 300">Serviço 3 - R$ 300</option>
+                        <option value="Serviço 4 - R$ 400">Serviço 4 - R$ 400</option>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Enviar Pedido</button>
@@ -121,11 +151,22 @@
         </div>
     </div>
     <div class="footer">
-        &copy; 2024 KN5 Seguidores - <a href="https://api.whatsapp.com/send?phone=19995271979">Contato via WhatsApp</a>
+        &copy; 2024 KN5 Seguidores - <a href="https://api.whatsapp.com/send?phone=+5519995271979&text=Ol%C3%A1+vim+pelo+seu+site+KN5+Shop%2C+tudo+bem%3F+%F0%9F%98%83">Contato via WhatsApp</a>
     </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.min.js"></script>
+<script>
+    document.getElementById('orderForm').onsubmit = function(e) {
+        e.preventDefault();
+
+        var clientName = encodeURIComponent(document.getElementById('client_name').value);
+        var service = encodeURIComponent(document.getElementById('service').value);
+        var message = `Ol%C3%A1+vim+pelo+seu+site+KN5+Seguidores%2C+o+cliente+${clientName}+solicitou+o+seguinte+servi%C3%A7o%3A+${service}`;
+
+        window.open(`https://api.whatsapp.com/send?phone=+5519995271979&text=${message}`, '_blank');
+    };
+</script>
 </body>
 </html>
