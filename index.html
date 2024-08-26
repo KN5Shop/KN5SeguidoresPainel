@@ -233,50 +233,58 @@
     };
 
     const packages = {
-        mundiais: [
-            { range: "500", price: "R$ 5,00" },
-            { range: "1000", price: "R$ 10,00" },
-            { range: "1500", price: "R$ 15,00" },
-            { range: "2000", price: "R$ 20,00" },
-            { range: "2500", price: "R$ 25,00" },
-            { range: "3000", price: "R$ 30,00" },
-            { range: "3500", price: "R$ 35,00" },
-            { range: "4000", price: "R$ 40,00" },
-            { range: "4500", price: "R$ 45,00" },
-            { range: "5000", price: "R$ 50,00" },
-            { range: "5500", price: "R$ 55,00" },
-            { range: "6000", price: "R$ 60,00" },
-            { range: "6500", price: "R$ 65,00" },
-            { range: "7000", price: "R$ 70,00" },
-            { range: "7500", price: "R$ 75,00" },
-            { range: "8000", price: "R$ 80,00" },
-            { range: "8500", price: "R$ 85,00" },
-            { range: "9000", price: "R$ 90,00" },
-            { range: "9500", price: "R$ 95,00" },
-            { range: "10000", price: "R$ 100,00" }
-        ],
-        brasileiros: [
-            { range: "500", price: "R$ 12,00" },
-            { range: "1000", price: "R$ 24,00" },
-            { range: "1500", price: "R$ 36,00" },
-            { range: "2000", price: "R$ 48,00" },
-            { range: "2500", price: "R$ 60,00" },
-            { range: "3000", price: "R$ 72,00" },
-            { range: "3500", price: "R$ 84,00" },
-            { range: "4000", price: "R$ 96,00" },
-            { range: "4500", price: "R$ 108,00" },
-            { range: "5000", price: "R$ 120,00" },
-            { range: "5500", price: "R$ 132,00" },
-            { range: "6000", price: "R$ 144,00" },
-            { range: "6500", price: "R$ 156,00" },
-            { range: "7000", price: "R$ 168,00" },
-            { range: "7500", price: "R$ 180,00" },
-            { range: "8000", price: "R$ 192,00" },
-            { range: "8500", price: "R$ 204,00" },
-            { range: "9000", price: "R$ 216,00" },
-            { range: "9500", price: "R$ 228,00" },
-            { range: "10000", price: "R$ 240,00" }
-        ]
+        seguidores: {
+            mundiais: [
+                { range: "500", price: "R$ 5,00" },
+                { range: "1000", price: "R$ 10,00" },
+                { range: "1500", price: "R$ 15,00" },
+                { range: "2000", price: "R$ 20,00" },
+                { range: "2500", price: "R$ 25,00" },
+                { range: "3000", price: "R$ 30,00" },
+                { range: "3500", price: "R$ 35,00" },
+                { range: "4000", price: "R$ 40,00" },
+                { range: "4500", price: "R$ 45,00" },
+                { range: "5000", price: "R$ 50,00" }
+            ],
+            brasileiros: [
+                { range: "500", price: "R$ 12,00" },
+                { range: "1000", price: "R$ 24,00" },
+                { range: "1500", price: "R$ 36,00" },
+                { range: "2000", price: "R$ 48,00" },
+                { range: "2500", price: "R$ 60,00" },
+                { range: "3000", price: "R$ 72,00" }
+            ]
+        },
+        curtidas: {
+            mundiais: [
+                { range: "500", price: "R$ 8,00" },
+                { range: "1000", price: "R$ 16,00" }
+            ],
+            brasileiros: [
+                { range: "500", price: "R$ 14,00" },
+                { range: "1000", price: "R$ 28,00" }
+            ]
+        },
+        comentarios: {
+            mundiais: [
+                { range: "10", price: "R$ 5,00" },
+                { range: "20", price: "R$ 10,00" }
+            ],
+            brasileiros: [
+                { range: "10", price: "R$ 12,00" },
+                { range: "20", price: "R$ 24,00" }
+            ]
+        },
+        visualizacoes: {
+            mundiais: [
+                { range: "1000", price: "R$ 3,00" },
+                { range: "2000", price: "R$ 6,00" }
+            ],
+            brasileiros: [
+                { range: "1000", price: "R$ 6,00" },
+                { range: "2000", price: "R$ 12,00" }
+            ]
+        }
     };
 
     document.getElementById('category').addEventListener('change', function() {
@@ -285,10 +293,12 @@
         const packageSelect = document.getElementById('package');
         const serviceColumn = document.getElementById('serviceColumn');
 
+        // Limpa os serviços e pacotes anteriores
         serviceSelect.innerHTML = '<option value="" disabled selected>Selecione um serviço</option>';
         packageSelect.innerHTML = '<option value="" disabled selected>Selecione um pacote</option>';
         serviceColumn.innerHTML = '';
-        
+
+        // Exibe apenas os serviços da categoria selecionada
         if (category && services[category]) {
             services[category].forEach(service => {
                 const option = document.createElement('option');
@@ -304,15 +314,18 @@
 
     document.getElementById('service').addEventListener('change', function() {
         const serviceType = this.value;
+        const category = document.getElementById('category').value; // Captura a categoria selecionada
         const packageSelect = document.getElementById('package');
 
+        // Limpa os pacotes anteriores
         packageSelect.innerHTML = '<option value="" disabled selected>Selecione um pacote</option>';
-        
-        if (serviceType && packages[serviceType]) {
-            packages[serviceType].forEach(pkg => {
+
+        // Exibe apenas os pacotes da categoria e tipo de serviço selecionados
+        if (serviceType && packages[category] && packages[category][serviceType]) {
+            packages[category][serviceType].forEach(pkg => {
                 const option = document.createElement('option');
                 option.value = pkg.range;
-                option.textContent = `Até ${pkg.range} seguidores - ${pkg.price}`;
+                option.textContent = `Até ${pkg.range} - ${pkg.price}`;
                 packageSelect.appendChild(option);
             });
         }
