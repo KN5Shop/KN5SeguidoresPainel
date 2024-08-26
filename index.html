@@ -138,6 +138,11 @@
             padding: 15px;
             margin-bottom: 10px;
         }
+        .feedback {
+            color: #d4af37;
+            margin-top: 10px;
+            font-size: 0.875rem;
+        }
     </style>
 </head>
 <body>
@@ -195,6 +200,7 @@
                         <option value="" disabled selected>Selecione um pacote</option>
                     </select>
                 </div>
+                <div id="feedback" class="feedback"></div>
                 <button type="submit" class="btn btn-primary">Enviar Pedido</button>
             </form>
         </div>
@@ -234,14 +240,16 @@
 
     const packages = {
         mundiais: [
-            { range: "500", price: "R$ 5,00" },
             { range: "1000", price: "R$ 10,00" },
-            { range: "1500", price: "R$ 15,00" },
             { range: "2000", price: "R$ 20,00" },
-            { range: "2500", price: "R$ 25,00" },
             { range: "3000", price: "R$ 30,00" },
-            { range: "3500", price: "R$ 35,00" },
-            { range: "4000", price: "R$ 40,00" }
+            { range: "4000", price: "R$ 40,00" },
+            { range: "5000", price: "R$ 50,00" },
+            { range: "6000", price: "R$ 60,00" },
+            { range: "7000", price: "R$ 70,00" },
+            { range: "8000", price: "R$ 80,00" },
+            { range: "9000", price: "R$ 90,00" },
+            { range: "10000", price: "R$ 100,00" }
         ],
         brasileiros: [
             { range: "500", price: "R$ 5,00" },
@@ -260,14 +268,19 @@
             const category = $(this).val();
             const serviceSelect = $('#service');
             const packageSelect = $('#package');
+            const feedback = $('#feedback');
             
             serviceSelect.empty().append('<option value="" disabled selected>Selecione um serviço</option>');
             packageSelect.empty().append('<option value="" disabled selected>Selecione um pacote</option>');
-            
+            feedback.text('');
+
             if (category && services[category]) {
                 services[category].forEach(service => {
                     serviceSelect.append(`<option value="${service.name}">${service.name}</option>`);
                 });
+                $('#servicesDisplay').addClass('show');
+            } else {
+                $('#servicesDisplay').removeClass('show');
             }
         });
 
@@ -280,15 +293,28 @@
             
             if (category && service) {
                 const type = services[category].find(s => s.name === service).type;
-                packages[type].forEach(pkg => {
-                    packageSelect.append(`<option value="${pkg.range}">${pkg.range} - ${pkg.price}</option>`);
-                });
+                if (packages[type]) {
+                    packages[type].forEach(pkg => {
+                        packageSelect.append(`<option value="${pkg.range}">${pkg.range} - ${pkg.price}</option>`);
+                    });
+                }
             }
         });
 
         $('#orderForm').submit(function(event) {
             event.preventDefault();
-            alert('Pedido enviado com sucesso!');
+            const clientName = $('#client_name').val();
+            const category = $('#category').val();
+            const service = $('#service').val();
+            const package = $('#package').val();
+
+            if (clientName && category && service && package) {
+                alert('Pedido enviado com sucesso!');
+                $('#orderForm')[0].reset();
+                $('#feedback').text('');
+            } else {
+                $('#feedback').text('Por favor, preencha todos os campos.');
+            }
         });
     });
 </script>
