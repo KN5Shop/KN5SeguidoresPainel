@@ -108,36 +108,6 @@
         .service-list.show {
             display: block;
         }
-        .service-list .service-column {
-            width: 100%;
-            margin-bottom: 20px;
-        }
-        @media (min-width: 576px) {
-            .service-list .service-column {
-                width: calc(50% - 10px);
-                float: left;
-                margin-right: 10px;
-            }
-        }
-        @media (min-width: 768px) {
-            .service-list .service-column {
-                width: calc(33.333% - 10px);
-                margin-right: 10px;
-            }
-        }
-        @media (min-width: 992px) {
-            .service-list .service-column {
-                width: calc(25% - 10px);
-                margin-right: 10px;
-            }
-        }
-        .service-item {
-            background-color: #2e2e2e;
-            border: 1px solid #d4af37;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 10px;
-        }
         .feedback {
             color: #d4af37;
             margin-top: 10px;
@@ -206,11 +176,6 @@
         </div>
     </div>
 
-    <!-- Section to display selected services -->
-    <div id="servicesDisplay" class="service-list">
-        <div class="service-column" id="serviceColumn"></div>
-    </div>
-
     <div class="footer">
         &copy; 2024 KN5 Seguidores - <a href="https://api.whatsapp.com/send?phone=+5519995271979&text=Ol%C3%A1+vim+pelo+seu+site+KN5+Shop%2C+tudo+bem%3F+%F0%9F%98%83">Contato via WhatsApp</a>
     </div>
@@ -236,18 +201,12 @@
 
     const packages = {
         mundiais: [
-            { range: "500 seguidores", price: "R$5,00" },
-            { range: "1000 seguidores", price: "R$10,00" },
-            { range: "2000 seguidores", price: "R$25,00" },
-            { range: "500 curtidas", price: "R$1,50" },
-            { range: "500 visualizações", price: "R$0,50" },
+            { range: "500", type: "mundiais", price: "R$5,00" },
+            { range: "1000", type: "mundiais", price: "R$10,00" }
         ],
         brasileiros: [
-            { range: "500 seguidores", price: "R$8,00" },
-            { range: "1000 seguidores", price: "R$15,00" },
-            { range: "2000 seguidores", price: "R$30,00" },
-            { range: "500 curtidas", price: "R$3,50" },
-            { range: "500 visualizações", price: "R$1,50" },
+            { range: "500", type: "brasileiros", price: "R$8,00" },
+            { range: "1000", type: "brasileiros", price: "R$15,00" }
         ]
     };
 
@@ -255,37 +214,25 @@
         $('#category').change(function() {
             const category = $(this).val();
             const serviceSelect = $('#service');
-            const packageSelect = $('#package');
-            const feedback = $('#feedback');
-            
             serviceSelect.empty().append('<option value="" disabled selected>Selecione um serviço</option>');
-            packageSelect.empty().append('<option value="" disabled selected>Selecione um pacote</option>');
-            feedback.text('');
+            $('#package').empty().append('<option value="" disabled selected>Selecione um pacote</option>');
 
             if (category && services[category]) {
                 services[category].forEach(service => {
-                    serviceSelect.append(`<option value="${service.name}">${service.name}</option>`);
+                    serviceSelect.append(`<option value="${service.type}">${service.name}</option>`);
                 });
-                $('#servicesDisplay').addClass('show');
-            } else {
-                $('#servicesDisplay').removeClass('show');
             }
         });
 
         $('#service').change(function() {
-            const category = $('#category').val();
-            const service = $(this).val();
+            const serviceType = $(this).val();
             const packageSelect = $('#package');
-
             packageSelect.empty().append('<option value="" disabled selected>Selecione um pacote</option>');
-            
-            if (category && service) {
-                const type = services[category].find(s => s.name === service).type;
-                if (packages[type]) {
-                    packages[type].forEach(pkg => {
-                        packageSelect.append(`<option value="${pkg.range}">${pkg.range} - ${pkg.price}</option>`);
-                    });
-                }
+
+            if (serviceType && packages[serviceType]) {
+                packages[serviceType].forEach(pkg => {
+                    packageSelect.append(`<option value="${pkg.range}">${pkg.range} seguidores - ${pkg.price}</option>`);
+                });
             }
         });
 
@@ -299,7 +246,6 @@
             if (clientName && category && service && package) {
                 alert('Pedido enviado com sucesso!');
                 $('#orderForm')[0].reset();
-                $('#feedback').text('');
             } else {
                 $('#feedback').text('Por favor, preencha todos os campos.');
             }
