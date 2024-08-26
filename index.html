@@ -101,8 +101,50 @@
         .btn {
             border-radius: 5px;
         }
+        .service-list {
+            display: none;
+            margin-top: 20px;
+        }
+        .service-list.show {
+            display: block;
+        }
+        .service-list .service-column {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        @media (min-width: 576px) {
+            .service-list .service-column {
+                width: calc(50% - 10px);
+                float: left;
+                margin-right: 10px;
+            }
+        }
+        @media (min-width: 768px) {
+            .service-list .service-column {
+                width: calc(33.333% - 10px);
+                margin-right: 10px;
+            }
+        }
+        @media (min-width: 992px) {
+            .service-list .service-column {
+                width: calc(25% - 10px);
+                margin-right: 10px;
+            }
+        }
+        .service-item {
+            background-color: #2e2e2e;
+            border: 1px solid #d4af37;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        .feedback {
+            color: #d4af37;
+            margin-top: 10px;
+            font-size: 0.875rem;
+        }
         .form-background {
-            background-color: #1e1e1e;
+            background-color: #1e1e1e; /* Fundo do formulário para combinar com o site */
             border-radius: 15px;
             padding: 20px;
         }
@@ -139,13 +181,12 @@
             <form id="orderForm">
                 <div class="form-group">
                     <label for="client_name">Nome:</label>
-                    <input type="text" id="client_name" name="client_name" class="form-control" required>
+                    <input type="text" id="client_name" name="client_name" class="form-control" placeholder="Digite seu nome" required>
                 </div>
                 <div class="form-group">
                     <label for="category">Categoria:</label>
                     <select id="category" name="category" class="form-control" required>
                         <option value="" disabled selected>Selecione uma categoria</option>
-                        <!-- As opções serão carregadas pelo JSON -->
                     </select>
                 </div>
                 <div class="form-group">
@@ -167,68 +208,75 @@
     </div>
 
     <div class="footer">
-        &copy; 2024 KN5 Seguidores - <a href="https://api.whatsapp.com/send?phone=+5519995271979&text=Ol%C3%A1+vim+pelo+seu+site+KN5+Shop%2C+tudo+bem%3F+%F0%9F%98%83">Contato via WhatsApp</a>
+        &copy; 2024 KN5 Seguidores - <a href="https://api.whatsapp.com/send?phone=+5519995271979&text=Ol%C3%A1,%20preciso%20de%20ajuda" target="_blank">Suporte</a>
     </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.min.js"></script>
 <script>
-    // Função para carregar o JSON e atualizar as opções
     $(document).ready(function() {
-        $.getJSON('data.json', function(data) {
-            const categorySelect = $('#category');
-            const serviceSelect = $('#service');
-            const packageSelect = $('#package');
-            const feedback = $('#feedback');
+        // Função para carregar o JSON e atualizar as opções
+        $.ajax({
+            url: 'data.json',
+            dataType: 'json',
+            success: function(data) {
+                const categorySelect = $('#category');
+                const serviceSelect = $('#service');
+                const packageSelect = $('#package');
+                const feedback = $('#feedback');
 
-            // Carregar categorias
-            for (const category in data) {
-                categorySelect.append(`<option value="${category}">${category}</option>`);
-            }
+                // Carregar categorias
+                for (const category in data) {
+                    categorySelect.append(`<option value="${category}">${category}</option>`);
+                }
 
-            categorySelect.on('change', function() {
-                const category = $(this).val();
-                serviceSelect.empty().append('<option value="" disabled selected>Selecione um serviço</option>');
-                packageSelect.empty().append('<option value="" disabled selected>Selecione um pacote</option>');
-                feedback.empty();
+                categorySelect.on('change', function() {
+                    const category = $(this).val();
+                    serviceSelect.empty().append('<option value="" disabled selected>Selecione um serviço</option>');
+                    packageSelect.empty().append('<option value="" disabled selected>Selecione um pacote</option>');
+                    feedback.empty();
 
-                if (data[category]) {
-                    for (const [serviceName] of Object.entries(data[category])) {
-                        serviceSelect.append(`<option value="${serviceName}">${serviceName}</option>`);
+                    if (data[category]) {
+                        for (const [serviceName] of Object.entries(data[category])) {
+                            serviceSelect.append(`<option value="${serviceName}">${serviceName}</option>`);
+                        }
                     }
-                }
-            });
+                });
 
-            serviceSelect.on('change', function() {
-                const category = $('#category').val();
-                const service = $(this).val();
-                packageSelect.empty().append('<option value="" disabled selected>Selecione um pacote</option>');
-                feedback.empty();
+                serviceSelect.on('change', function() {
+                    const category = $('#category').val();
+                    const service = $(this).val();
+                    packageSelect.empty().append('<option value="" disabled selected>Selecione um pacote</option>');
+                    feedback.empty();
 
-                if (category && service && data[category] && data[category][service]) {
-                    data[category][service].forEach(pkg => {
-                        packageSelect.append(`<option value="${pkg.range}">${pkg.range} - ${pkg.price}</option>`);
-                    });
-                }
-            });
+                    if (category && service && data[category] && data[category][service]) {
+                        data[category][service].forEach(pkg => {
+                            packageSelect.append(`<option value="${pkg.range}">${pkg.range} - ${pkg.price}</option>`);
+                        });
+                    }
+                });
 
-            $('#orderForm').on('submit', function(event) {
-                event.preventDefault();
-                const name = $('#client_name').val();
-                const category = $('#category').val();
-                const service = $('#service').val();
-                const packageRange = $('#package').val();
+                $('#orderForm').on('submit', function(event) {
+                    event.preventDefault();
+                    const name = $('#client_name').val();
+                    const category = $('#category').val();
+                    const service = $('#service').val();
+                    const packageRange = $('#package').val();
 
-                if (name && category && service && packageRange) {
-                    feedback.text(`Obrigado, ${name}! Seu pedido para ${service} na categoria ${category} com pacote ${packageRange} foi recebido.`);
-                } else {
-                    feedback.text('Por favor, preencha todos os campos.');
-                }
-            });
+                    if (name && category && service && packageRange) {
+                        feedback.text(`Obrigado, ${name}! Seu pedido para ${service} na categoria ${category} com pacote ${packageRange} foi recebido.`);
+                    } else {
+                        feedback.text('Por favor, preencha todos os campos.');
+                    }
+                });
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Erro ao carregar o JSON: ', textStatus, errorThrown);
+                $('#feedback').text('Não foi possível carregar os dados. Verifique o console para mais informações.');
+            }
         });
     });
 </script>
-
 </body>
 </html>
